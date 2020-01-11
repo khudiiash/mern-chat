@@ -21,9 +21,9 @@ export default (user: ILoginData) => {
         {},
       ),
     },
-    process.env.JWT_SECRET || 'UpFJfpWKYteH5rMHSxst',
+    process.env.JWT_SECRET || '',
     {
-      expiresIn: process.env.JWT_MAX_AGE || '7d',
+      expiresIn: process.env.JWT_MAX_AGE,
       algorithm: 'HS256',
     },
   );
