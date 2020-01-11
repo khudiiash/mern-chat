@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path'
+import fs from 'fs'
 import { createServer } from 'http';
 
 dotenv.config();
@@ -17,7 +18,12 @@ createRoutes(app, io);
 
 const PORT = process.env.PORT || 3003;
 if (process.env.NODE_ENV === 'production') {
-
+  fs.readdirSync(path.join(__dirname,'..','client','build')).forEach(file => {
+    console.log(file);
+  });
+  fs.readdirSync(path.join(__dirname)).forEach(folder => {
+    console.log(folder);
+  });
   app.use(express.static(path.join(__dirname,'..','client','build')))
   app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname, '..','client','build','index.html'));
