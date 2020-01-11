@@ -5,7 +5,7 @@ import { createServer } from 'http';
 
 dotenv.config();
 
-import 'core/db';
+import './core/db';
 import createRoutes from './core/routes';
 import createSocket from './core/socket';
 
