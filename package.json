@@ -4,9 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "ts-node index.ts",
     "watch": "nodemon",
-    "heroku-postbuild":"cd src/client && npm install && npm run build"
+    "heroku-postbuild":"cd client && npm install && npm run build"
   },
   "devDependencies": {
     "json-server": "^0.15.0"
