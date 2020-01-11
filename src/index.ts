@@ -17,12 +17,12 @@ createRoutes(app, io);
 
 const PORT = process.env.PORT || 3003;
 if (process.env.NODE_ENV === 'production') {
-  console.log(process.env.MONGODB_URI)
-  console.log(process.env.JWT_SECRET)
-  
+  console.log(path.join(__dirname, 'client','build','index.html'))
+  console.log(path.join(__dirname, '..','client','build','index.html'))
+
   app.use(express.static( 'client/build '))
-  app.get('/*', (req,res) => {
-    res.sendFile(path.join(__dirname, 'client','build','index.html'));
+  app.get('*', (req,res) => {
+    res.sendFile(path.join(__dirname, '..','client','build','index.html'));
   })
 }
 
