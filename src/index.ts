@@ -18,12 +18,10 @@ createRoutes(app, io);
 
 const PORT = process.env.PORT || 3003;
 if (process.env.NODE_ENV === 'production') {
-  fs.readdirSync(path.join('client','build')).forEach(file => {
-    console.log(file);
-  });
+  
   app.use(express.static('client/build'))
 
-  app.get('/', (req,res) => {
+  app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname,'client','build','index.html'));
   })
 }
