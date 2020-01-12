@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-mongoose.connect(String(process.env.MONGO), {
+mongoose.connect(String(process.env.MONGODB_URI), {
   useNewUrlParser: true,
   useCreateIndex: true,
   useFindAndModify: false,
