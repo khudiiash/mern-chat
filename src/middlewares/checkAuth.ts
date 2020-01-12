@@ -12,6 +12,7 @@ export default (req: any, res: any, next: any) => {
   }
 
   const token = req.headers.token;
+  console.log('token: '+token)
   if (token) {
     verifyJWTToken(token)
     .then((user: any) => {
