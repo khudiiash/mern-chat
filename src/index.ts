@@ -18,8 +18,8 @@ createRoutes(app, io);
 
 const PORT = process.env.PORT || 3003;
 if (process.env.NODE_ENV === 'production') {
-  
-  app.use(express.static('client/build'))
+  console.log(process.env)
+  app.use(express.static(path.join(__dirname, "client", "build")))
 
   app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname,'client','build','index.html'));
