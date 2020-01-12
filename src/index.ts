@@ -2,8 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path'
 import { createServer } from 'http';
-const jwt = require('jsonwebtoken');
-
 
 dotenv.config();
 
@@ -27,7 +25,6 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname,'client','build','index.html'));
   })
-  app.use(jwt())
   
 }
 
