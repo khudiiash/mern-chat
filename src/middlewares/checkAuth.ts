@@ -12,8 +12,9 @@ export default (req: any, res: any, next: any) => {
   }
 
   const token = req.headers.token;
+
   console.log('token: '+token)
-  if (token) {
+  
     verifyJWTToken(token)
     .then((user: any) => {
       req.user = user.data._doc;
@@ -22,7 +23,5 @@ export default (req: any, res: any, next: any) => {
     .catch(err => {
       console.log(err)
       res.status(403).json({ message: err });
-    });
-  }
-  
+    });  
 };
