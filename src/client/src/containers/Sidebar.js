@@ -62,6 +62,7 @@ const SidebarContainer = ({ user,setOffline,allMessages }) => {
     setOffline(user)
     userActions.setIsAuth(false)
     delete window.localStorage.token;
+    window.reload()
     
   }
 

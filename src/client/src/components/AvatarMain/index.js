@@ -12,7 +12,6 @@ import { useSelector } from "react-redux";
 
 const AvatarMain = ({ user, onSelectAvatar, previewImage, setPreviewImage }) => {
   let data = useSelector(state => state.user.data)
-  console.log(data)
 
   if (user.fullName) {
     if (user.avatar) {
