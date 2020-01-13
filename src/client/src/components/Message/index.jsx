@@ -14,7 +14,6 @@ import pauseSvg from "assets/img/pause.svg";
 import { Time, IconRead, Avatar } from "../";
 
 import "./Message.scss";
-import { useSelector } from "react-redux";
 
 const MessageAudio = ({ audioSrc }) => {
   const audioElem = useRef(null);
@@ -101,14 +100,6 @@ const Message = ({
   onRemoveMessage,
   setPreviewImage
 }) => {
-
- if (text.includes('Тестовое сообщение') && read) console.log('прочитано');
- else if (text.includes('Тестовое сообщение') && !read) console.log("не прочитано")
- let messages = useSelector(state => state.messages.items)
- if (messages) {
-   let message = messages.find(m => m._id === _id)
-   console.log(message)
- }
 
   const renderAttachment = item => {
     if (item.ext !== "webm") {
