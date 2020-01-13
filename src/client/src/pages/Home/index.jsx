@@ -13,9 +13,7 @@ const Home = props => {
   let { setCurrentDialogId, user, setOnline, setOffline } = props;
   if (user && !user.isOnline) {setOnline(user); userApi.setOnline(user)}
   window.onbeforeunload = () => {
-    console.log('on reload')
-      props.history.push('/')
-    };
+    
   document.addEventListener('onunload',() => {
     setOffline(user)
     userApi.setOffline(user)
