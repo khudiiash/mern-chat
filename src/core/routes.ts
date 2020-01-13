@@ -48,8 +48,8 @@ const createRoutes = (app: express.Express, io: socket.Server) => {
 
   app.post("/files", multer.single("file"), UploadFileController.create);
   app.delete("/files", UploadFileController.delete);
-  app.get("*",(req,res) => {
-    res.sendFile(path.join(__dirname,'..','client','build','index.html'))
+  app.get("/*",(req,res) => {
+    res.sendFile(path.resolve(__dirname,'..','client','build','index.html'))
   })
 };
 
