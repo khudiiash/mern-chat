@@ -15,7 +15,6 @@ const app = express();
 const http = createServer(app);
 const io = createSocket(http);
 
-createRoutes(app, io);
 
 
 
@@ -27,6 +26,8 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname,'client','build','index.html'));
   })
+  createRoutes(app, io);
+
   
 }
 
