@@ -13,9 +13,6 @@ export default (req: any, res: any, next: any) => {
 
   const token = req.headers.token;
 
-  console.log('headers')
-  console.log(req.headers)
-  console.log('token: '+token)
 
     verifyJWTToken(token)
     .then((user: any) => {
@@ -23,6 +20,7 @@ export default (req: any, res: any, next: any) => {
       next();
     })
     .catch(err => {
-      res.status(403).json({ message: err });
+      console.log(err)
+      // res.status(403).json({ message: err });
     });  
 };
