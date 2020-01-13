@@ -12,7 +12,7 @@ import { dialogsActions } from 'redux/actions';
 const Home = props => {
   let { setCurrentDialogId, user, setOnline, setOffline } = props;
   if (user && !user.isOnline) {setOnline(user); userApi.setOnline(user)}
-  window.onbeforeunload = () => {
+  
     
   document.addEventListener('onunload',() => {
     setOffline(user)
