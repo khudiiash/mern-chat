@@ -11,7 +11,7 @@ const getCorrectIndex = number => {
 };
 
 export default name => {
-  const [r, g, b] = name
+  const [r, g, b] = name || "Name"
     .substr(0, 3)
     .split("")
     .map(char => getCorrectIndex(char.charCodeAt(0)));
