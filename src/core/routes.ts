@@ -20,7 +20,7 @@ const createRoutes = (app: express.Express, io: socket.Server) => {
   const UploadFileController = new UploadFileCtrl();
 
   app.use(bodyParser.json());
-  app.use(checkAuth);
+  // app.use(checkAuth);
   app.use(updateLastSeen);
 
   app.get("/user/me", UserController.getMe);

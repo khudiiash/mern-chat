@@ -14,13 +14,12 @@ export default (req: any, res: any, next: any) => {
   const token = req.headers.token;
 
 
-    verifyJWTToken(token)
-    .then((user: any) => {
-      req.user = user.data._doc;
-      next();
-    })
-    .catch(err => {
-      console.log(err)
-      // res.status(403).json({ message: err });
-    });  
+  verifyJWTToken(token)
+  .then((user: any) => {
+    req.user = user.data._doc;
+    next();
+  })
+  .catch(err => {
+    res.status(403).json({ message: err });
+  });  
 };
