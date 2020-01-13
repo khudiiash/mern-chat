@@ -2,6 +2,8 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path'
 import { createServer } from 'http';
+import { checkAuth } from "./middlewares";
+
 
 dotenv.config();
 
@@ -25,6 +27,7 @@ if (process.env.NODE_ENV === 'production') {
   app.get('*', (req,res) => {
     res.sendFile(path.join(__dirname,'client','build','index.html'));
   })
+  app.use(checkAuth)
   
 }
 
