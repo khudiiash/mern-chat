@@ -173,7 +173,7 @@ class UserController {
             to: postData.email,
             subject: 'Подтверждение почты в чате',
             html: `<h1>Привет!</h1>
-            <p>Для того, чтобы подтвердить почту, перейди <a href="http://localhost:3000/signup/verify?hash=${obj.confirm_hash}">по этой ссылке</a></p>`
+            <p>Для того, чтобы подтвердить почту, перейди <a href="http://${process.env.HOST}/signup/verify?hash=${obj.confirm_hash}">по этой ссылке</a></p>`
           },
           function(err: any, info: any) {
             if (err) {
