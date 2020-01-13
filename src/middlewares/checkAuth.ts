@@ -1,7 +1,6 @@
 import express from "express";
 import { verifyJWTToken } from "../utils";
 import { IUser } from "../models/User";
-import path from 'path'
 
 export default (req: any, res: any, next: any) => {
   if (
@@ -21,6 +20,6 @@ export default (req: any, res: any, next: any) => {
     next();
   })
   .catch(err => {
-    res.sendFile(path.resolve(__dirname + '/../client/build/index.html'));
+    res.status(403).json(err);
   });  
 };

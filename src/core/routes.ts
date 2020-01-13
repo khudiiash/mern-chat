@@ -3,6 +3,7 @@ import express from "express";
 import socket from "socket.io";
 import { updateLastSeen, checkAuth } from "../middlewares";
 import { loginValidation, registerValidation } from "../utils/validations";
+import path from "path";
 
 import multer from "./multer";
 
@@ -22,7 +23,9 @@ const createRoutes = (app: express.Express, io: socket.Server) => {
   app.use(bodyParser.json());
   app.use(checkAuth)
   app.use(updateLastSeen);
-
+  app.get("*",(req,res) => {
+    res.sendFile(path.join(__dirname,'..','client','build','index.html'))
+  })
   app.get("/user/me", UserController.getMe);
   app.get("/user/verify", UserController.verify);
   app.post("/user/signup", registerValidation, UserController.create);
