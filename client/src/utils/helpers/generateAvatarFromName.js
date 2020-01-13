@@ -16,13 +16,8 @@ const getCorrectIndex = number => {
 };
 
 export default name => {
-  if (!name) {
-    name = 'Name'
-  }
-  const [r, g, b] = name
-    .substr(0, 3)
-    .split("")
-    .map(char => getCorrectIndex(char.charCodeAt(0)));
+  
+  const r = 255, g = 255, b = 255
   return {
     color: tinycolor({ r, g, b })
       .lighten(10)

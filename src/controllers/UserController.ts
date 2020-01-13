@@ -35,6 +35,7 @@ class UserController {
           message: 'User not found'
         });
       }
+      console.log(user)
       res.json(user);
     });
   };
