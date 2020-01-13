@@ -6,7 +6,9 @@ import { generateAvatarFromName } from "utils/helpers";
 import "./Avatar.scss";
 
 const Avatar = ({ user }) => {
+  
   if (user) {
+    console.log(user)
     if (user.avatar) {
       return (
         <img

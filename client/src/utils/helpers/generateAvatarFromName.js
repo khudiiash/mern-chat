@@ -1,16 +1,24 @@
 import tinycolor from "tinycolor2";
 
 const getCorrectIndex = number => {
-  if (number > 255 && number.toString().length === 4) {
+  if (number && number > 255 && number.toString().length === 4) {
     return parseInt(number.toString().charAt(0)+number.toString().substr(2,3));
   }
   if (number < 0) {
     return 0;
   }
-  return number > 255 ? 255 : number < 0 ? 0 : number;
+  if (number) {
+    return number > 255 ? 255 : number < 0 ? 0 : number;
+  } else {
+    return 255
+  }
+  
 };
 
 export default name => {
+  if (!name) {
+    name = 'Name'
+  }
   const [r, g, b] = name
     .substr(0, 3)
     .split("")
