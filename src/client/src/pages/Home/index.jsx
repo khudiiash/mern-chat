@@ -44,7 +44,7 @@ const Home = props => {
           <div className="chat__dialog" style={{width: isMobile ? '100vw' : 'auto'}}>
             <Status history={props.history}/>
             <Messages me={user}/>
-            <div className="chat__dialog-input" >
+            <div className="chat__dialog-input" style={{height: isMobile ? '70px' : '120px'}}>
               <ChatInput />
             </div>
           </div>

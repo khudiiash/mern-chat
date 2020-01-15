@@ -173,8 +173,69 @@ class UserController {
             from: 'Small Chat',
             to: postData.email,
             subject: 'Подтверждение почты в чате',
-            html: `<h1>Привет!</h1>
-            <p>Для того, чтобы подтвердить почту, перейди <a href="https://ordinary-chat.herokuapp.com/signup/verify?hash=${obj.confirm_hash}">по этой ссылке</a></p>`
+            html: `<html>
+            <head>
+              <style>
+                .content {
+                  padding-top: 100px;
+                  height: 520px;
+                  border-radius: 8px;
+                  width: 550px;
+                  background: rgb(155,111,155);
+                  background-repeat: no-repeat;
+                  background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,            rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);  
+                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+                  font-family: 'Arial','Roboto','Open Sans',serif;
+                  text-align: center;
+                  
+                }
+                h1 {
+                   color: rgb(256,124,115) !important;
+                  text-align: center;
+                }
+                p {
+                  color: rgb(210,210,210);
+                  font-size: 20px;
+                }
+                .button {
+                  width: 170px;
+                  height: 20px;
+                  margin-left: 180px;
+                  background: rgba(255,255,255,.9);
+                  border-radius: 9px;
+                  padding: 8px;
+                  padding-bottom: 15px;
+                   background: -webkit-radial-gradient(0% 200%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 100%), linear-gradient(to bottom,            rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);  
+                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+            
+                }
+               
+                .link a {
+                  color: rgb(256,144,115) !important;
+                  text-decoration: none;
+                  font-size: 20px;
+                 
+                }
+           
+                .button:hover {
+                  background: -webkit-radial-gradient(200% 255%, ellipse cover, rgba(104,128,238,.4) 10%,rgba(138,114,76,0) 100%), linear-gradient(to bottom,            rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);  
+                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+                }
+                
+            </style>
+            </head>
+          <body>
+            <div class='content'>
+          <h1>Привет, ${obj.fullName}!</h1>
+             <p>Добро пожаловать в чатик!</p>
+            <p>Я очень рад что ты решил(а) зарегистрироваться!</p>
+            <p>Почта подтверждена!<p>
+            <div class='button'>
+              <span class='link'><a href="https://ordinary-chat.herokuapp.com/signup/verify?hash=${obj.confirm_hash}">Вернуться в чат</a></span>
+            </div>
+            </div>
+          </body>
+          </html>`
           },
           function(err: any, info: any) {
             if (err) {
