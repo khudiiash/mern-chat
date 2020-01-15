@@ -107,7 +107,12 @@ const ChatInput = props => {
   const handleSendMessage = e => {
     socket.emit('DIALOGS:TYPING', { dialogId: currentDialogId, user });
     if (e.keyCode === 13) {
-      sendMessage();
+      if (e.shiftKey) {
+        
+      } else {
+        sendMessage();
+      }
+
     }
   };
 

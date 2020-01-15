@@ -1,38 +1,37 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import { generateAvatarFromName } from "utils/helpers";
-
 import "./Avatar.scss";
+import {useMediaQuery} from 'react-responsive'
 
-const Avatar = ({ user }) => {
- 
-  if (user.fullName) {
-    
-    if (user.avatar) {
-      return (
-        <img
-          className="avatar"
-          src={user.avatar}
-          alt={`Avatar ${user.fullName}`}
-        />
-      );
-    } else {
-      const { color, colorLighten } = generateAvatarFromName(user.fullName);
-      const firstChar = user.fullName[0].toUpperCase();
-      return (
-        <div
-          style={{
-            background: `linear-gradient(135deg, ${color} 0%, ${colorLighten} 96.52%)`
-          }}
-          className="avatar avatar--symbol">
-          {firstChar}
-        </div>
-  
-      );
-    }
+const Avatar = ({ user, isWithin }) => {
+
+  const isMobile = useMediaQuery({ maxWidth: 767 })
+
+  if (user.avatar) {
+    return (
+      <img
+        className="avatar"
+        src={user.avatar}
+        alt={`Avatar ${user.fullName}`}
+        style={{display : isMobile && isWithin ? 'none':'block'}}
+      />
+    );
+  } else {
+    const { color, colorLighten } = generateAvatarFromName(user.fullName);
+    const firstChar = user.fullName[0].toUpperCase();
+    return (
+      <div
+        style={{
+          background: `linear-gradient(135deg, ${color} 0%, ${colorLighten} 96.52%)`,
+          display : isMobile && isWithin ? 'none':'block'
+        }}
+        className="avatar avatar--symbol">
+        {firstChar}
+      </div>
+
+    );
   }
-  
   
 };
 

@@ -10,6 +10,9 @@ import { convertCurrentTime, isAudio } from "utils/helpers";
 import waveSvg from "assets/img/wave.svg";
 import playSvg from "assets/img/play.svg";
 import pauseSvg from "assets/img/pause.svg";
+import { useMediaQuery } from 'react-responsive'
+
+
 
 import { Time, IconRead, Avatar } from "../";
 
@@ -101,6 +104,8 @@ const Message = ({
   setPreviewImage
 }) => {
 
+  const isMobile = useMediaQuery({ maxWidth: 767 })
+
   const renderAttachment = item => {
     if (item.ext !== "webm") {
       return (
@@ -133,8 +138,10 @@ const Message = ({
           attachments.length === 1 &&
           !text
       })}
+      style={{width: isMobile ? '90vw' : 'auto'}}
+
     >
-      <div className="message__content">
+      <div className="message__content" style={{maxWidth: isMobile? '60vw' : '440px'}}>
         <IconRead isMe={isMe} isRead={read} />
         <Popover
           content={
@@ -153,7 +160,7 @@ const Message = ({
           </div>
         </Popover>
         <div className="message__avatar">
-          <Avatar user={user} />
+          <Avatar user={user} isWithin={true}/>
         </div>
         <div className="message__info">
           {(text || isTyping) && (

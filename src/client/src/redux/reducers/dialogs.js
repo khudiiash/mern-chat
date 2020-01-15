@@ -36,6 +36,22 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       items:state.items.filter(dialog => dialog._id !== payload)
       };
+    case 'DIALOGS:SET_FRIENDS':
+      return {
+        ...state,
+        friends: payload
+      }
+    case 'DIALOGS:UPDATE_FRIENDS_ONLINE':
+      return {
+        ...state,
+        friends: state.friends.map((friend,index) => {
+          if (friend.isOnline !== payload[index].isOnline) {
+            return friend.isOnline = payload[index].isOnline;
+          } else {return friend}
+        })
+          
+      }
+    
     default:
       return state;
   }

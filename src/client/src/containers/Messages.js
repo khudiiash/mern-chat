@@ -3,7 +3,7 @@ import { connect, useSelector } from 'react-redux';
 import { Empty } from 'antd';
 import find from 'lodash/find';
 
-import { messagesActions, dialogsActions } from 'redux/actions';
+import { messagesActions, dialogsActions, userActions } from 'redux/actions';
 import socket from 'core/socket';
 
 import { Messages as BaseMessages } from 'components';
@@ -18,7 +18,8 @@ const Messages = ({
   removeMessageById,
   attachments,
   me,
-  setTypingInDialogWithId
+  setTypingInDialogWithId,
+  isMobile
 }) => {
   if (!currentDialog) {
 
@@ -38,7 +39,6 @@ const Messages = ({
   const onNewMessage = data => {
     addMessage(data);
   };
-
   const toggleIsTyping = (obj) => {
     setTypingInDialogWithId(obj.dialogId)
     setIsTyping(true);
@@ -51,6 +51,7 @@ const Messages = ({
 
   useEffect(() => {
     socket.on('DIALOGS:TYPING', (obj) => toggleIsTyping(obj));
+    
   }, []);
 
   useEffect(() => {
@@ -105,5 +106,5 @@ export default connect(
     date: messages.date,
     user: user.data,
   }),
-  {...messagesActions, ...dialogsActions}
+  {...messagesActions, ...dialogsActions, userActions}
 )(Messages);

@@ -2,6 +2,9 @@ Web based chat application
 
 **Stack:**
 
+Front-End
+-
+Back-End
 - NodeJS
 - TypeScript
 - Express

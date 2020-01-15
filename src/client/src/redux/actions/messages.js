@@ -9,6 +9,10 @@ const Actions = {
     type: "MESSAGES:SET_ITEMS",
     payload: items
   }),
+  clearMessages: () => ({
+    type: "MESSAGES:SET_ITEMS",
+    payload: []
+  }),
   addMessage: message => (dispatch, getState) => {
     const { dialogs } = getState();
     const { currentDialogId } = dialogs;
@@ -53,7 +57,8 @@ const Actions = {
       .catch(() => {
         dispatch(Actions.setIsLoading(false));
       });
-  }
+  },
+ 
 };
 
 export default Actions;

@@ -5,7 +5,7 @@ import { userActions } from "redux/actions";
 
 import { Sidebar } from "components";
 
-const SidebarContainer = ({ user,setOffline,allMessages }) => {
+const SidebarContainer = ({ user,allMessages,isMobile }) => {
   const [visible, setVisible] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [messageText, setMessageText] = useState("");
@@ -57,19 +57,16 @@ const SidebarContainer = ({ user,setOffline,allMessages }) => {
   const onSelectUser = userId => {
     setSelectedUserId(userId);
   };
-  const onLogout = user => {
-    userApi.setOffline(user)
-    setOffline(user)
-    userActions.setIsAuth(false)
-    delete window.localStorage.token;
+  const onLogout = () => {
+    window.localStorage.clear()
     window.location.reload();
     
   }
 
   return (
     <Sidebar
-      allMessages={allMessages}
       user={user}
+      isMobile={isMobile}
       inputValue={inputValue}
       visible={visible}
       isLoading={isLoading}
@@ -84,6 +81,7 @@ const SidebarContainer = ({ user,setOffline,allMessages }) => {
       messageText={messageText}
       selectedUserId={selectedUserId}
       users={users}
+      allMessages={allMessages}
     />
   );
 };

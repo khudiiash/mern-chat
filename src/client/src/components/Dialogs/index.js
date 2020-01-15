@@ -7,12 +7,13 @@ import { DialogItem } from "../";
 import "./Dialogs.scss";
 import { useSelector } from "react-redux";
 
-const Dialogs = ({ items, userId, onSearch, inputValue, currentDialogId }) => {
+const Dialogs = ({ items, friends,userId, onSearch, inputValue, currentDialogId }) => {
 
-  // let allMessages = useSelector(state => state.messages.allMessages)
-  
+ 
   let typingInDialogWithId = useSelector(state => state.dialogs.typingInDialogWithId)
-  
+  let unreadDialogs = items.filter(item => !item.lastMessage.read)
+  let readDialogs = items.filter(item => item.lastMessage.read)
+ 
   return(
   <div className="dialogs">
     <div className="dialogs__search">
@@ -25,11 +26,13 @@ const Dialogs = ({ items, userId, onSearch, inputValue, currentDialogId }) => {
       
     </div>
     {items.length ? (
-      orderBy(items, ["created_at"], ["desc"]).map(item => {
+      unreadDialogs.length && readDialogs.length ? 
+      orderBy(unreadDialogs, ["createdAt"], ["desc"]).concat(orderBy(readDialogs, ["createdAt"], ["desc"])).map(item => {
         
         return(
         <DialogItem
           key={item._id}
+          friends={friends}
           isTyping={item._id === typingInDialogWithId}
           isMe={item.author._id === userId}
           unread={item.unread}
@@ -39,13 +42,48 @@ const Dialogs = ({ items, userId, onSearch, inputValue, currentDialogId }) => {
 
         />
       )})
-    ) : (
+     : unreadDialogs.length && !readDialogs.length ? 
+      orderBy(unreadDialogs, ["createdAt"], ["desc"]).map(item => {
+       
+      return(
+      <DialogItem
+        key={item._id}
+        friends={friends}
+        isTyping={item._id === typingInDialogWithId}
+        isMe={item.author._id === userId}
+        unread={item.unread}
+        userId={userId}
+        currentDialogId={currentDialogId}
+        {...item}
+
+      />
+    )})
+    : !unreadDialogs.length && readDialogs.length 
+    ?  orderBy(readDialogs, ["createdAt"], ["desc"]).map(item => {
+       
+      return(
+      <DialogItem
+        key={item._id}
+        friends={friends}
+        isTyping={item._id === typingInDialogWithId}
+        isMe={item.author._id === userId}
+        unread={item.unread}
+        userId={userId}
+        currentDialogId={currentDialogId}
+        {...item}
+
+      />
+    )}) :
       <Empty
         image={Empty.PRESENTED_IMAGE_SIMPLE}
         style={{color: 'rgba(255,255,255,.7)'}}
         description="Ничего не найдено"
       />
-    )}
+    ): <Empty
+    image={Empty.PRESENTED_IMAGE_SIMPLE}
+    style={{color: 'rgba(255,255,255,.7)'}}
+    description="Ничего не найдено"
+  />}
   </div>
 )};
 

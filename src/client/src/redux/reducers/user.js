@@ -24,24 +24,12 @@ export default (state = initialState, { type, payload }) => {
         ...state,
         isAuth: payload
       };
-    case "USER:SET_ONLINE":
-      return {
-        ...state,
-        data: {...state.data,
-          last_seen:new Date(),isOnline:true},
-      };
     case "USER:SET_CURRENT_DIALOG":
       return {
         ...state,
-        data: {...state.data,
-          current_dialog_id:payload},
+        offline:  [...state.user.offline, payload._id]
       };
-    case "USER:SET_OFFLINE":
-      return {
-        ...state,
-        data: {...state.data,
-          last_seen:new Date(),isOnline:false},
-      };
+    
     default:
       return state;
   }

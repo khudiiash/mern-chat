@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 
 import { dialogsActions, messagesActions} from 'redux/actions';
 import socket from 'core/socket';
 import { Dialogs as BaseDialogs } from 'components';
 import { userApi, dialogsApi, messagesApi } from '../utils/api';
 
-const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userId, user, setAllMessages }) => {
-  
+const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userId, user, setAllMessages, setFriends }) => {
+  let friends = useSelector(state => state.dialogs.friends) || []
+  if (items && !friends.length) {
+    items.forEach(dialog => {
+      friends.push(userId === dialog.author ? dialog.partner : dialog.author)
+    })
+    if (friends.length) {
+      setFriends(friends)
+    }
+  }
   if ( user && currentDialogId ) {
     dialogsApi.getOneById(currentDialogId)
       .then(res => {
@@ -71,6 +79,7 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
   }, []);
   return (
     <BaseDialogs
+      friends={friends}
       userId={userId}
       items={filtered}
       onSearch={onChangeInput}

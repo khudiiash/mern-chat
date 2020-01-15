@@ -6,7 +6,7 @@
   &__content {
     display: flex;
     max-width: 440px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     position: relative;
 
     &:hover {
@@ -41,7 +41,7 @@
     background: linear-gradient(to right, #355b7d79, #6c5b7b75, #c06c8431);
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.03);
     border-radius: 12px 12px 12px 0px;
-    padding: 15px;
+    padding: 12px;
     margin-bottom: 8px;
   }
 
@@ -223,6 +223,7 @@
       order: 2;
       #{$self}__text {
         color: $white;
+        text-align: left;
         font-family: "Roboto", Helvetica, sans-serif,serif;
       }
     }

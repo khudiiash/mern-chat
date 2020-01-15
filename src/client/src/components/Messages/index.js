@@ -21,16 +21,17 @@ const Messages = ({
   typingInDialogWithId,
   partner,
   me,
-  currentDialog
+  currentDialog,
+  isMobile
 }) => {
   return (
-    <div className="chat__dialog-messages" style={{ height: `calc(100% - ${blockHeight}px)` }}>
+    <div className="chat__dialog-messages" style={{ height: `calc(100% - ${blockHeight}px)`,width: isMobile ? '100vw' : 'auto'}}>
       <div ref={blockRef} className={classNames('messages', { 'messages--loading': isLoading })}>
         {isLoading && !user ? (
           <Spin size="large" tip="Загрузка сообщений..." />
         ) : items && !isLoading ? (
           items.length > 0 ? (
-            items.map(item => {
+            items.reduce((unique,item) => unique.includes(item) ? unique : [...unique,item],[]).map(item => {
               return(
               <Message
                 {...item}

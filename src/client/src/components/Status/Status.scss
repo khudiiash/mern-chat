@@ -1,9 +1,13 @@
 .status {
   display: inline-block;
-  color: #bfbfbf;
+  color: #f7e9e9;
   position: relative;
   font-size: 13px;
-  
+  &-go-back-arrow {
+    position: absolute;
+    left: 15px;
+    top: 22px;
+  }
   &::before {
     display: block;
     position: absolute;

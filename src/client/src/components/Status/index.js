@@ -6,14 +6,22 @@ import { Button, Popover, Icon } from 'antd';
 import './Status.scss';
 import { useSelector } from 'react-redux';
 import { timeFromNow } from 'utils/helpers'
+import { useMediaQuery } from 'react-responsive'
 
+const GoBackIcon = ({goBack}) => {
+  return(
+    <Icon className='status-go-back-arrow' type='left' style={{color: 'grey'}} onClick={()=> goBack()}/>
+  )
+}
 
-
-const Status = ({ partner, deleteDialogById }) => {
+const Status = ({ partner, deleteDialogById,goBack }) => {
 
   let currentDialogId = useSelector(state => state.dialogs.currentDialogId)
+  const isMobile = useMediaQuery({ maxWidth: 767 })
+
   return (
-    <div className="chat__dialog-header">
+    <div className="chat__dialog-header" style={{width: isMobile ? '100vw' : '100%'}}>
+      {isMobile ?  <GoBackIcon goBack={goBack}/>: ''}
       <div className="chat__dialog-header-center">
         <b className="chat__dialog-header-username">{partner.fullName}</b>
         <div className="chat__dialog-header-status">

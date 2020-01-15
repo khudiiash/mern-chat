@@ -1,6 +1,7 @@
 @import "~styles/variables";
 
 .dialogs {
+  overflow: scroll;
   
   &__search {
     padding: 2px 20px 20px 20px;

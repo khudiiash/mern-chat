@@ -7,8 +7,6 @@ export default {
   getMe: () => axios.get("/user/me"),
   findUsers: query => axios.get("/user/find?query=" + query),
   setAvatar: data =>  axios.post("/user/setAvatar", data),
-  setOnline: data => axios.post("/user/setOnline", data),
-  setOffline: data =>  axios.post("/user/setOffline", data),
   setCurrentDialog: data => axios.post(`/user/setCurrentDialog`,data),
 
 };

@@ -5,7 +5,7 @@ import { UploadField } from "@navjobs/upload";
 import { Picker } from "emoji-mart";
 
 import { UploadFiles } from "components";
-
+import {useMediaQuery} from 'react-responsive'
 import "./ChatInput.scss";
 
 const { TextArea } = Input;
@@ -27,10 +27,10 @@ const ChatInput = props => {
     removeAttachment,
     isLoading,
   } = props;
-  
+  const isMobile = useMediaQuery({ maxWidth: 767 })
   return (
     <Fragment>
-      <div className="chat-input">
+      <div className="chat-input" style={{ width: isMobile ? '96vw' : '96%' }}>
         <div>
           <div className="chat-input__smile-btn">
             <div className="chat-input__emoji-picker">
@@ -70,6 +70,7 @@ const ChatInput = props => {
               placeholder="Введите текст сообщения…"
               value={value}
               autoSize={{ minRows: 1, maxRows: 6 }}
+              style={{width: isMobile ? '100vw' : '100%'}}
             />
           )}
 

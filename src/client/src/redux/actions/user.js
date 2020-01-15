@@ -18,14 +18,7 @@ const Actions = {
     type: 'USER:SET_CURRENT_DIALOG',
     payload: data,
   }),
-  setOnline: data => ({
-    type: 'USER:SET_ONLINE',
-    payload: data,
-  }),
-  setOffline: data => ({
-    type: 'USER:SET_OFFLINE',
-    payload: data,
-  }),
+
   fetchUserData: () => dispatch => {
     userApi
       .getMe()
