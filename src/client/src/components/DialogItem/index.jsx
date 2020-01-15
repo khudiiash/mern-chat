@@ -52,8 +52,8 @@ const DialogItem = props => {
     if (newLastMessage) lastMessage = newLastMessage;
   }
   let communicator = userId === partner._id ? author : partner;
-  if (friends) {
-    let friend = friends.find(friend => friend._id === communicator._id)
+  if (friends && communicator) {
+    let friend = friends.find(friend => friend && friend._id === communicator._id)
     if (friend && communicator.isOnline === friend.isOnline) {
       communicator = friend
     }

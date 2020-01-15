@@ -47,9 +47,9 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
   const onChangeInput = (value = '') => {
     setFilteredItems(
       items.filter(
-        dialog =>
-          dialog.author.fullName.toLowerCase().indexOf(value.toLowerCase()) >= 0 ||
-          dialog.partner.fullName.toLowerCase().indexOf(value.toLowerCase()) >= 0,
+        dialog => 
+          dialog && dialog.author && dialog.partner && (dialog.author.fullName.toLowerCase().indexOf(value.toLowerCase()) >= 0 ||
+          dialog.partner.fullName.toLowerCase().indexOf(value.toLowerCase()) >= 0),
       ),
     );
     setValue(value);
