@@ -29,7 +29,7 @@ const Sidebar = ({
   onLogout,
   allMessages
 }) => {
-  const options = users.map(person => person._id === user._id && person.confirmed && <Option key={person._id}>{person.fullName}</Option>);
+  const options = users.map(person => person._id !== user._id && person.confirmed && <Option key={person._id}>{person.fullName}</Option>);
   const isMobile = useMediaQuery({ maxWidth: 767 })
 
   return (

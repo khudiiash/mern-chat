@@ -10,7 +10,10 @@ import { useMediaQuery } from 'react-responsive'
 
 const GoBackIcon = ({goBack}) => {
   return(
-    <Icon className='status-go-back-arrow' type='left' style={{color: 'grey'}} onClick={()=> goBack()}/>
+    <div className='status-go-back' onClick={()=> goBack()}>
+        <Icon className='status-go-back-arrow' type='left' style={{color: 'grey'}} />
+    </div>
+   
   )
 }
 

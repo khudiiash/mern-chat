@@ -3,10 +3,18 @@
   color: #f7e9e9;
   position: relative;
   font-size: 13px;
-  &-go-back-arrow {
+  &-go-back {
     position: absolute;
-    left: 15px;
-    top: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    width: 55px;
+    height: 55px;
+    &-icon {
+      margin: 0 auto;
+    }
   }
   &::before {
     display: block;
