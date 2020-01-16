@@ -7,7 +7,6 @@ import socket from 'core/socket';
 import { ChatInput as ChatInputBase } from 'components';
 
 import { messagesActions, attachmentsActions } from 'redux/actions';
-var getOrientedImage = require('exif-orientation-image');
 
 const ChatInput = props => {
   const {
@@ -127,14 +126,7 @@ const ChatInput = props => {
   const onSelectFiles = async files => {
     let uploaded = [];
     for (let i = 0; i < files.length; i++) {
-      const file = getOrientedImage(files[i],function(err,canvas) {
-          if (!err) {
-            return canvas
-          } else {
-            console.log(err)
-          }
-      });
-
+      const file = files[i]
       const uid = Math.round(Math.random() * 1000);
       uploaded = [
         ...uploaded,

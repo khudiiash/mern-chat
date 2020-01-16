@@ -11,12 +11,14 @@ import waveSvg from "assets/img/wave.svg";
 import playSvg from "assets/img/play.svg";
 import pauseSvg from "assets/img/pause.svg";
 import { useMediaQuery } from 'react-responsive'
-
+import exifOrient from 'exif-orient'
+import EXIF from 'exif-js'
 
 
 import { Time, IconRead, Avatar } from "../";
 
 import "./Message.scss";
+import { previewImage } from "antd/lib/upload/utils";
 
 const MessageAudio = ({ audioSrc }) => {
   const audioElem = useRef(null);
@@ -105,6 +107,9 @@ const Message = ({
 }) => {
 
   const isMobile = useMediaQuery({ maxWidth: 767 })
+  if (previewImage) {
+
+  }
 
   const renderAttachment = item => {
     if (item.ext !== "webm") {
