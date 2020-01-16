@@ -25,8 +25,8 @@ class MessageController {
       }
       
       let sender,receiver;
-      if (docs && docs[0]) sender = docs[0]
-      if (docs && docs[1]) receiver = docs[1]
+      if (docs && docs[0]) receiver = docs[0]
+      if (docs && docs[1]) sender = docs[1]
      
       if (sender) console.log("sender "+sender.fullName); 
       if (sender) console.log(sender.isOnline ? 'online': 'offline')
