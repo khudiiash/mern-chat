@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Status as StatusBase } from "components";
-import { connect, useSelector } from "react-redux";
-import socket from 'core/socket'
+import { connect } from "react-redux";
 import { userActions,dialogsActions,messagesActions } from 'redux/actions'
 import {useMediaQuery } from 'react-responsive'
 
@@ -23,8 +22,9 @@ const Status = props => {
   const goBack = () => {
     let sidebar = document.querySelector('.chat__sidebar')
     sidebar.style.display = 'block'
-    setCurrentDialogId('')
+    history.push('/')
     clearMessages()
+    
   }
   const deleteDialogById = (id) => {
     deleteDialog(id)
