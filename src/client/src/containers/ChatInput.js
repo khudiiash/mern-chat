@@ -26,8 +26,7 @@ const ChatInput = props => {
     window.navigator.getUserMedia ||
     window.navigator.mozGetUserMedia ||
     window.navigator.msGetUserMedia ||
-    window.navigator.webkitGetUserMedia ||
-    window.navigator.mediaDevices.getUserMedia;
+    window.navigator.webkitGetUserMedia
 
   const [value, setValue] = useState('');
   const [isRecording, setIsRecording] = useState('');
