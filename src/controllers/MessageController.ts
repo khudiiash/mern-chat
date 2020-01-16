@@ -15,6 +15,7 @@ class MessageController {
     this.io = io;
   }
   sendMailOnMessage = (receiverId: any, senderId: any, message: any) => {
+    console.log('in sender')
     UserModel.find({'_id':{ $in : [
       mongoose.Types.ObjectId(receiverId),
       mongoose.Types.ObjectId(senderId)
@@ -22,12 +23,15 @@ class MessageController {
       if (err) {
         console.log(err)
       }
-      
-      let sender,receiver;
-      if (docs && docs[0]) receiver = docs[0]
-      if (docs && docs[1]) sender = docs[1]
      
+      let sender,receiver;
+      if (docs && docs[0] && docs[1]) {
+        receiver = docs[0].id === receiverId ? docs[0] : docs[1]
+        sender = docs[0].id === senderId ? docs[0] : docs[1]
+      }
+           
           if (!err && sender && receiver && !receiver.isOnline) {
+            console.log('yep, sending')
         mailer.sendMail(
           {
             from: 'Ordinary Chat',

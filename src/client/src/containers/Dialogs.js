@@ -24,7 +24,6 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
       })
       messages = [].concat.apply([],messages)
      
-      
         setAllMessages(messages)
   })
   }
