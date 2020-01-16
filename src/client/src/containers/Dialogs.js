@@ -57,7 +57,8 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
     })
   }
   useEffect(() => {
-    socket.on('USER:ONLINE',setAllMessages(user))
+    socket.on('USER:ONLINE',onSetAllMessages(items))
+    socket.on('USER:OFFLINE',onSetAllMessages(items))
   })
   useEffect(() => {
     if (items.length) {
