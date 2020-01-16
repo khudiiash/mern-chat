@@ -194,7 +194,7 @@ class UserController {
                   text-align: center;
                 }
                 p {
-                  color: rgb(210,210,210);
+                  color: rgba(210,210,210,1);
                   font-size: 20px;
                 }
                 .button {

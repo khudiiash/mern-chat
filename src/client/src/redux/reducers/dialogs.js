@@ -45,7 +45,7 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         friends: state.friends.map((friend,index) => {
-          if (friend.isOnline !== payload[index].isOnline) {
+          if (friend && friend.isOnline !== payload[index].isOnline) {
             return friend.isOnline = payload[index].isOnline;
           } else {return friend}
         })

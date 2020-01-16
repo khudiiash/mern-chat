@@ -32,7 +32,7 @@ const Actions = {
     payload: bool
   }),
   removeMessageById: id => dispatch => {
-    if (window.confirm("Вы действительно хотите удалить сообщение?")) {
+   
       messagesApi
         .removeById(id)
         .then(({ data }) => {
@@ -44,7 +44,6 @@ const Actions = {
         .catch(() => {
           dispatch(Actions.setIsLoading(false));
         });
-    }
   },
 
   fetchMessages: dialogId => dispatch => {

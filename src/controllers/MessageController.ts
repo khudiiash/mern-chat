@@ -4,6 +4,7 @@ import socket from 'socket.io';
 import { MessageModel, DialogModel, UserModel } from '../models';
 import { IUser } from '../models/User';
 import { IMessage } from '../models/Message';
+import mailer from '../core/mailer';
 
 
 class MessageController {
@@ -12,7 +13,89 @@ class MessageController {
   constructor(io: socket.Server) {
     this.io = io;
   }
-
+  sendMailOnMessage = (receiver: any, senderId: any, message: any) => {
+    UserModel.findById(senderId, (err,sender) => {
+      if (!err && sender && !receiver.isOnline) {
+        mailer.sendMail(
+          {
+            from: 'Ordinary Chat',
+            to: receiver.email,
+            subject: 'Ordinary Chat: New Message',
+            html: `<html>
+            <head>
+              <style>
+                .content {
+                  padding-top: 100px;
+                  height: 520px;
+                  border-radius: 8px;
+                  width: 550px;
+                  background: rgb(155,111,155);
+                  background-repeat: no-repeat;
+                  background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,            rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);  
+                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+                  font-family: 'Arial','Roboto','Open Sans',serif;
+                  text-align: center;
+                  
+                }
+                h1 {
+                   color: rgb(256,124,115) !important;
+                  text-align: center;
+                }
+                p {
+                  color: rgba(210,210,210,1);
+                  font-size: 20px;
+                }
+                .button {
+                  width: 170px;
+                  height: 20px;
+                  margin-left: 180px;
+                  background: rgba(255,255,255,.9);
+                  border-radius: 9px;
+                  padding: 8px;
+                  padding-bottom: 15px;
+                   background: -webkit-radial-gradient(0% 200%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 100%), linear-gradient(to bottom,            rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);  
+                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+            
+                }
+               
+                .link a {
+                  color: rgb(256,144,115) !important;
+                  text-decoration: none;
+                  font-size: 20px;
+                 
+                }
+           
+                .button:hover {
+                  background: -webkit-radial-gradient(200% 255%, ellipse cover, rgba(104,128,238,.4) 10%,rgba(138,114,76,0) 100%), linear-gradient(to bottom,            rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);  
+                  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3E1D6D', endColorstr='#092756',GradientType=1 );
+                }
+                
+            </style>
+            </head>
+          <body>
+            <div class='content'>
+          <h1>Привет, ${receiver.fullName}!</h1>
+             <p>Для тебя есть новое сообщение от ${sender.fullName}</p>
+            <p>"${message.text}"<p>
+            <div class='button'>
+              <span class='link'><a href="https://ordinary-chat.herokuapp.com">Перейти в чат</a></span>
+            </div>
+            </div>
+          </body>
+          </html>`
+          },
+          function(err: any, info: any) {
+            if (err) {
+              console.log(err);
+            } else {
+              console.log(info);
+            }
+          }
+        );
+      }
+    })
+    
+  }
   updateReadStatus = (res: express.Response, userId: string, dialogId: string) => {
    
     MessageModel.updateMany(
@@ -120,6 +203,13 @@ class MessageController {
       .catch(reason => {
         res.json(reason);
       });
+      DialogModel.findById(req.body.dialog_id, (err,dialog) => {
+        if (!err && dialog) {
+          let receiver = message.user === dialog.author ? dialog.partner : dialog.author
+          this.sendMailOnMessage(receiver,userId,message)
+        }
+      })
+    
   };
 
   delete = (req: express.Request, res: express.Response) => {
@@ -141,7 +231,7 @@ class MessageController {
         MessageModel.findOne(
           { dialog: dialogId },
           {},
-          { sort: { created_at: -1 } },
+          { sort: { createdAt: -1 } },
           (err, lastMessage) => {
             if (err) {
               res.status(500).json({

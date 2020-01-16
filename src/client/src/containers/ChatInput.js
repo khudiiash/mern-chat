@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import { filesApi } from 'utils/api';
 import socket from 'core/socket';
 
+
 import { ChatInput as ChatInputBase } from 'components';
 
 import { messagesActions, attachmentsActions } from 'redux/actions';
+var getOrientedImage = require('exif-orientation-image');
 
 const ChatInput = props => {
   const {
@@ -25,7 +27,8 @@ const ChatInput = props => {
     window.navigator.getUserMedia ||
     window.navigator.mozGetUserMedia ||
     window.navigator.msGetUserMedia ||
-    window.navigator.webkitGetUserMedia;
+    window.navigator.webkitGetUserMedia ||
+    window.navigator.mediaDevices.getUserMedia;
 
   const [value, setValue] = useState('');
   const [isRecording, setIsRecording] = useState('');
@@ -107,10 +110,11 @@ const ChatInput = props => {
   const handleSendMessage = e => {
     socket.emit('DIALOGS:TYPING', { dialogId: currentDialogId, user });
     if (e.keyCode === 13) {
-      if (e.shiftKey) {
-        
-      } else {
+      if (!e.shiftKey && e.target.value.length > 1) {
+        console.log(e.target.value.length)
         sendMessage();
+      } else {
+        
       }
 
     }
@@ -123,7 +127,12 @@ const ChatInput = props => {
   const onSelectFiles = async files => {
     let uploaded = [];
     for (let i = 0; i < files.length; i++) {
-      const file = files[i];
+      const file = getOrientedImage(files[i],function(err,canvas) {
+          if (!err) {
+            return canvas
+          }
+      }) || files[i];
+
       const uid = Math.round(Math.random() * 1000);
       uploaded = [
         ...uploaded,

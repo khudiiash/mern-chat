@@ -12,9 +12,17 @@ export default (http: http.Server) => {
       if (user) {
         socket.broadcast.emit('USER:ONLINE', user)
         currentUser = user
-        UserModel.updateOne(
+        UserModel.findOne(
           {_id: user._id},
-          {$set: {isOnline: true}}
+          (err: any, user: any) => {
+            if (!err) {
+             user.isOnline = true
+             user.save()
+              .then( (user: any) => console.log(user))
+              .catch( (err: any) => console.log(err))
+
+            }
+          }
         )
 
       }
@@ -22,9 +30,18 @@ export default (http: http.Server) => {
     socket.on('disconnect',() => {
       if (currentUser) {
         socket.broadcast.emit('USER:OFFLINE', currentUser)
-        UserModel.updateOne(
+        UserModel.findOne(
           {_id: currentUser._id},
-          {$set: {isOnline: false, last_seen: new Date()}}
+          (err: any, user: any) => {
+            if (!err) {
+             user.isOnline = false
+             user.last_seen = new Date()
+             user.save()
+              .then( (user: any) => console.log(user))
+              .catch( (err: any) => console.log(err))
+
+            }
+          }
         )
       }
     });

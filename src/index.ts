@@ -2,7 +2,6 @@ import express from 'express';
 import dotenv from 'dotenv';
 import path from 'path'
 import { createServer } from 'http';
-import { checkAuth } from "./middlewares";
 
 
 dotenv.config();

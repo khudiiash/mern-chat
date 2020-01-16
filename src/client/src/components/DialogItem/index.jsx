@@ -15,7 +15,6 @@ const renderLastMessage = (message, userId) => {
   } else {
     text = message.text;
   }
-
   return text[0] !== ":"
     ? `${message.user._id === userId ? "Вы: " : ""}${text}`
     : `${message.user._id === userId ? "Вы " : ""}${text}`;

@@ -21,7 +21,7 @@ const Status = props => {
 
 
   const updateOnlineStatus = (friends,user,isOnline) => {
-    let friend = friends.find(f => f._id === user._id)
+    let friend = friends.find(f => f && f._id === user._id)
     if (friend) {
       friends[friends.indexOf(friend)].isOnline = isOnline
       updateFriendsOnline(friends)
