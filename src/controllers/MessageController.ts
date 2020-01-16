@@ -1,5 +1,6 @@
 import express from 'express';
 import socket from 'socket.io';
+import mongoose from 'mongoose'
 
 import { MessageModel, DialogModel, UserModel } from '../models';
 import { IUser } from '../models/User';
@@ -13,9 +14,14 @@ class MessageController {
   constructor(io: socket.Server) {
     this.io = io;
   }
-  sendMailOnMessage = (receiver: any, senderId: any, message: any) => {
-    UserModel.findById(senderId, (err,sender) => {
-      if (!err && sender && !receiver.isOnline) {
+  sendMailOnMessage = (receiverId: any, senderId: any, message: any) => {
+    UserModel.find({'_id':{ $in : [
+      mongoose.Types.ObjectId(receiverId),
+      mongoose.Types.ObjectId(senderId)
+    ]}}, (err,docs) => {
+      let sender = docs.find(user => user._id === senderId)
+      let receiver = docs.find(user => user._id === receiverId)
+      if (!err && sender && receiver && !receiver.isOnline) {
         mailer.sendMail(
           {
             from: 'Ordinary Chat',
