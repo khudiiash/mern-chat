@@ -130,8 +130,10 @@ const ChatInput = props => {
       const file = getOrientedImage(files[i],function(err,canvas) {
           if (!err) {
             return canvas
+          } else {
+            console.log(err)
           }
-      }) || files[i];
+      });
 
       const uid = Math.round(Math.random() * 1000);
       uploaded = [

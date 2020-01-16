@@ -231,7 +231,7 @@ class MessageController {
       DialogModel.findById(req.body.dialog_id, (err,dialog) => {
         if (!err && dialog) {
           console.log('found dialog')
-          let receiverId = message.user === dialog.author ? dialog.partner : dialog.author
+          let receiverId = message.user.toString() === dialog.author.toString() ? dialog.partner.toString() : dialog.author.toString()
           console.log('receiver id: '+receiverId)
           console.log('sender id: '+userId)
           console.log('send mail on message')
