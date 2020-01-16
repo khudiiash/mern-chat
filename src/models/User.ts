@@ -42,7 +42,8 @@ const UserSchema = new Schema(
       type: Date,
       default: new Date(),
     },
-    current_dialog_id: String
+    current_dialog_id: String,
+    receiver_id:String,
   },
   {
     timestamps: true,
@@ -55,6 +56,9 @@ UserSchema.virtual('isOnline').get(function(this: any) {
 
 UserSchema.set('toJSON', {
   virtuals: true,
+});
+UserSchema.set('toObject', {
+  getters: true,
 });
 
 UserSchema.pre('save', async function(next) {

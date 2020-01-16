@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import socket from 'socket.io';
 import { validationResult } from 'express-validator';
 import mailer from '../core/mailer';
+import mongoose from 'mongoose';
 
 import { UserModel } from '../models';
 import { IUser } from '../models/User';
@@ -35,7 +36,6 @@ class UserController {
           message: 'User not found'
         });
       }
-      console.log(user)
       res.json(user);
     });
   };
@@ -74,7 +74,7 @@ class UserController {
   };
   setOnline = (req: express.Request, res: express.Response) => {
     const id: string = req.body._id;
-    UserModel.findOne({ _id: id})
+    UserModel.findOne({ '_id': id})
     .then(user => {
   
       if (user) {

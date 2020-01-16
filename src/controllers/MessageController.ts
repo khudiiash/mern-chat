@@ -15,13 +15,24 @@ class MessageController {
     this.io = io;
   }
   sendMailOnMessage = (receiverId: any, senderId: any, message: any) => {
+    console.log('in sender')
     UserModel.find({'_id':{ $in : [
       mongoose.Types.ObjectId(receiverId),
       mongoose.Types.ObjectId(senderId)
     ]}}, (err,docs) => {
-      let sender = docs.find(user => user._id === senderId)
-      let receiver = docs.find(user => user._id === receiverId)
-      if (!err && sender && receiver && !receiver.isOnline) {
+      if (err) {
+        console.log(err)
+      }
+      
+      let sender,receiver;
+      if (docs && docs[0]) sender = docs[0]
+      if (docs && docs[1]) receiver = docs[1]
+     
+      if (sender) console.log("sender "+sender.fullName); 
+      if (sender) console.log(sender.isOnline ? 'online': 'offline')
+      if (receiver) console.log("receiver "+receiver.fullName); 
+      if (receiver) console.log(receiver.isOnline ? 'online': 'offline')
+          if (!err && sender && receiver && !receiver.isOnline) {
         mailer.sendMail(
           {
             from: 'Ordinary Chat',
@@ -32,7 +43,7 @@ class MessageController {
               <style>
                 .content {
                   padding-top: 100px;
-                  height: 520px;
+                  height: 420px;
                   border-radius: 8px;
                   width: 550px;
                   background: rgb(155,111,155);
@@ -44,14 +55,22 @@ class MessageController {
                   
                 }
                 h1 {
-                   color: rgb(256,124,115) !important;
+                  color: rgb(256,124,115) !important;
                   text-align: center;
                 }
-                p {
-                  color: rgba(210,210,210,1);
+                h3 {
+                  color: rgb(256,124,115) !important;
+                  font-size: 20px;
+                }
+                h4 {
+                  color: rgb(150,150,150) !important;
+                }
+                h4 span {
+                  color: rgb(256,124,115) !important;
                   font-size: 20px;
                 }
                 .button {
+                  margin-top: 50px;
                   width: 170px;
                   height: 20px;
                   margin-left: 180px;
@@ -81,8 +100,8 @@ class MessageController {
           <body>
             <div class='content'>
           <h1>Привет, ${receiver.fullName}!</h1>
-             <p>Для тебя есть новое сообщение от ${sender.fullName}</p>
-            <p>"${message.text}"<p>
+             <h4>Для тебя есть новое сообщение от <span>${sender.fullName}</span></h4>
+            <h3>${message.text ? `"${message.text}"`:''}</h3>
             <div class='button'>
               <span class='link'><a href="https://ordinary-chat.herokuapp.com">Перейти в чат</a></span>
             </div>
@@ -211,8 +230,12 @@ class MessageController {
       });
       DialogModel.findById(req.body.dialog_id, (err,dialog) => {
         if (!err && dialog) {
-          let receiver = message.user === dialog.author ? dialog.partner : dialog.author
-          this.sendMailOnMessage(receiver,userId,message)
+          console.log('found dialog')
+          let receiverId = message.user === dialog.author ? dialog.partner : dialog.author
+          console.log('receiver id: '+receiverId)
+          console.log('sender id: '+userId)
+          console.log('send mail on message')
+          this.sendMailOnMessage(receiverId,userId,message)
         }
       })
     
