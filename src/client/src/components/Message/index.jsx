@@ -107,10 +107,7 @@ const Message = ({
 }) => {
 
   const isMobile = useMediaQuery({ maxWidth: 767 })
-  if (previewImage) {
-
-  }
-
+ 
   const renderAttachment = item => {
     if (item.ext !== "webm") {
       return (

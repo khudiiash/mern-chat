@@ -7,7 +7,7 @@ import { DialogItem } from "../";
 import "./Dialogs.scss";
 import { useSelector } from "react-redux";
 
-const Dialogs = ({ items, friends,userId, onSearch, inputValue, currentDialogId }) => {
+const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
 
  
   let typingInDialogWithId = useSelector(state => state.dialogs.typingInDialogWithId)
@@ -32,8 +32,8 @@ const Dialogs = ({ items, friends,userId, onSearch, inputValue, currentDialogId 
         return(
         <DialogItem
           key={item._id}
-          friends={friends}
           isTyping={item._id === typingInDialogWithId}
+          isOnline={item.partner.isOnline}
           isMe={item.author._id === userId}
           unread={item.unread}
           userId={userId}
@@ -48,8 +48,8 @@ const Dialogs = ({ items, friends,userId, onSearch, inputValue, currentDialogId 
       return(
       <DialogItem
         key={item._id}
-        friends={friends}
         isTyping={item._id === typingInDialogWithId}
+        isOnline={item.partner.isOnline}
         isMe={item.author._id === userId}
         unread={item.unread}
         userId={userId}
@@ -64,8 +64,8 @@ const Dialogs = ({ items, friends,userId, onSearch, inputValue, currentDialogId 
       return(
       <DialogItem
         key={item._id}
-        friends={friends}
         isTyping={item._id === typingInDialogWithId}
+        isOnline={item.partner.isOnline}
         isMe={item.author._id === userId}
         unread={item.unread}
         userId={userId}

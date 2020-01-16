@@ -6,36 +6,16 @@ import socket from 'core/socket';
 import { Dialogs as BaseDialogs } from 'components';
 import { userApi, dialogsApi, messagesApi } from '../utils/api';
 
-const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userId, user, setAllMessages, setFriends }) => {
-  let friends = useSelector(state => state.dialogs.friends) || []
-  if (items && !friends.length) {
-    items.forEach(dialog => {
-      friends.push(userId === dialog.author ? dialog.partner : dialog.author)
-    })
-    if (friends.length) {
-      setFriends(friends)
-    }
-  }
-  if ( user && currentDialogId ) {
-    dialogsApi.getOneById(currentDialogId)
-      .then(res => {
-        if ( user.current_dialog_id !== currentDialogId) {
-          user.current_dialog_id = currentDialogId
-          if (res.data.author === user._id) {
-            user.receiver_id = res.data.partner
-          } else if (res.data.partner === user._id) {
-            user.receiver_id = res.data.author
-          }
-            userApi.setCurrentDialog(user)
-        }
-        
-      })
-  }
+const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userId, user, setAllMessages }) => {
+ 
+  let all =useSelector(state => state.messages.allItems)
+
   const [inputValue, setValue] = useState('');
   const [filtered, setFilteredItems] = useState(Array.from(items));
 
   
   const onSetAllMessages = (dialogs ) => {
+   
     messagesApi.getAll()
     .then(res => {
       let messages = []
@@ -43,7 +23,9 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
         messages.push(res.data.filter(m => m.dialog === dialog._id))
       })
       messages = [].concat.apply([],messages)
-      setAllMessages(messages)
+     
+      
+        setAllMessages(messages)
   })
   }
   const onChangeInput = (value = '') => {
@@ -59,10 +41,28 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
 
   window.fetchDialogs = fetchDialogs;
  
-
+  if (filtered && filtered.length && userId) {
+    
+    filtered.forEach(item => {
+      if (item) {
+          
+         
+          item.partner = item.partner._id === userId? item.author : item.partner 
+          // dialog partner is never me
+         
+          
+         
+      }
+     
+    })
+  }
+  useEffect(() => {
+    socket.on('USER:ONLINE',setAllMessages(user))
+  })
   useEffect(() => {
     if (items.length) {
       onChangeInput();
+      if (!all || !all.length)
       onSetAllMessages(items)
     }
   }, [items]);
@@ -81,7 +81,6 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
   }, []);
   return (
     <BaseDialogs
-      friends={friends}
       userId={userId}
       items={filtered}
       onSearch={onChangeInput}

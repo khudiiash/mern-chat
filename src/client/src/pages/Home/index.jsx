@@ -19,8 +19,6 @@ const Home = props => {
   const isMobile = useMediaQuery({ maxWidth: 767 })
 
   const mobileOpenDialog = () => {
-   
-    
     let sidebarElement = document.querySelector('.chat__sidebar')
     if (sidebarElement) {
       sidebarElement.style.display = 'none'

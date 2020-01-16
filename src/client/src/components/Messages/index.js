@@ -39,9 +39,7 @@ const Messages = ({
                 {...item}
                 date={item.createdAt}
                 dialog={item.dialog}
-                isMe={user._id === item.user._id}
-                partner={partner}
-                me={me}
+                isMe={item.user._id === user._id}
                 isTyping={false}
                 onRemoveMessage={onRemoveMessage.bind(this, item._id)}
                 setPreviewImage={setPreviewImage}

@@ -11,23 +11,15 @@ const Status = props => {
     dialogs,
     deleteDialog,
     history,
-    updateFriendsOnline,
     setCurrentDialogId,
     clearMessages
     
   } = props
-  let friends = useSelector(state => state.dialogs.friends)
+  
   const isMobile = useMediaQuery({ maxWidth: 767 })
 
 
-  const updateOnlineStatus = (friends,user,isOnline) => {
-    let friend = friends.find(f => f && f._id === user._id)
-    if (friend) {
-      friends[friends.indexOf(friend)].isOnline = isOnline
-      updateFriendsOnline(friends)
-    }
-   
-  }
+
   const goBack = () => {
     let sidebar = document.querySelector('.chat__sidebar')
     sidebar.style.display = 'block'
@@ -39,15 +31,6 @@ const Status = props => {
     history.push('/')
     if (isMobile) goBack()
   }
-  useEffect(() => {
-    socket.on('USER:ONLINE', user => {
-      if (friends) updateOnlineStatus(friends,user,true)
-      
-    })
-    socket.on('USER:OFFLINE', user => {
-      if (friends) updateOnlineStatus(friends,user,false)
-    })
-  })
 
   if (!dialogs.length || !currentDialogId) {
     return null;

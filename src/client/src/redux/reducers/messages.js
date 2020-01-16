@@ -22,16 +22,6 @@ export default (state = initialState, { type, payload }) => {
         items: payload,
         isLoading: false,
       };
-    case 'DIALOGS:LAST_MESSAGE_READ_STATUS':
-      return {
-        ...state,
-        items: state.items.map(message => {
-          if (message.dialog._id === payload.dialogId) {
-            message.read = true;
-          }
-          return message;
-        }),
-      };
     case 'MESSAGES:REMOVE_MESSAGE':
       return {
         ...state,

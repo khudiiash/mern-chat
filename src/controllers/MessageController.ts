@@ -15,7 +15,6 @@ class MessageController {
     this.io = io;
   }
   sendMailOnMessage = (receiverId: any, senderId: any, message: any) => {
-    console.log('in sender')
     UserModel.find({'_id':{ $in : [
       mongoose.Types.ObjectId(receiverId),
       mongoose.Types.ObjectId(senderId)
@@ -28,10 +27,6 @@ class MessageController {
       if (docs && docs[0]) receiver = docs[0]
       if (docs && docs[1]) sender = docs[1]
      
-      if (sender) console.log("sender "+sender.fullName); 
-      if (sender) console.log(sender.isOnline ? 'online': 'offline')
-      if (receiver) console.log("receiver "+receiver.fullName); 
-      if (receiver) console.log(receiver.isOnline ? 'online': 'offline')
           if (!err && sender && receiver && !receiver.isOnline) {
         mailer.sendMail(
           {
@@ -230,11 +225,7 @@ class MessageController {
       });
       DialogModel.findById(req.body.dialog_id, (err,dialog) => {
         if (!err && dialog) {
-          console.log('found dialog')
           let receiverId = message.user.toString() === dialog.author.toString() ? dialog.partner.toString() : dialog.author.toString()
-          console.log('receiver id: '+receiverId)
-          console.log('sender id: '+userId)
-          console.log('send mail on message')
           this.sendMailOnMessage(receiverId,userId,message)
         }
       })

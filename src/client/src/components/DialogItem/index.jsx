@@ -26,18 +26,16 @@ const DialogItem = props => {
     unread,
     isMe,
     currentDialogId,
-    author,
     partner,
     lastMessage,
     userId,
     isTyping,
-    friends
+    isOnline
   } = props;
-  
+
   let messages = useSelector(state => state.messages.items);
   let allMessages = useSelector(state => state.messages.allItems);
-  
-  
+
   if (allMessages && allMessages.length) {
     if (currentDialogId !== _id) {
       unread = allMessages.filter(
@@ -50,31 +48,21 @@ const DialogItem = props => {
     let newLastMessage = messages.find(m => m._id === lastMessage._id);
     if (newLastMessage) lastMessage = newLastMessage;
   }
-  let communicator = userId === partner._id ? author : partner;
-  if (friends && communicator) {
-    let friend = friends.find(friend => friend && friend._id === communicator._id)
-    if (friend && communicator.isOnline === friend.isOnline) {
-      communicator = friend
-    }
-  }
-  
 
   return (
     <Link to={`/dialog/${_id}`}>
       <div
         className={classNames("dialogs__item", {
-          "dialogs__item--online": communicator.isOnline,
+          "dialogs__item--online": isOnline,
           "dialogs__item--selected": currentDialogId === _id
         })}
       >
         <div className="dialogs__item-avatar">
-          <Avatar user={communicator} />
+          <Avatar user={partner} />
         </div>
         <div className="dialogs__item-info">
           <div className="dialogs__item-info-top">
-            <b className="dialogs__item-into-top-name">
-              {communicator.fullName}
-            </b>
+            <b className="dialogs__item-into-top-name">{partner.fullName}</b>
             <span className="dialogs__item-into-top-time">
               {timeFromNow(lastMessage.createdAt)}
             </span>

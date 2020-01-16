@@ -10,14 +10,7 @@ const Actions = {
     type: 'DIALOGS:SET_TYPING_IN_DIALOG',
     payload: id
   }),
-  setFriends: array => ({
-    type: 'DIALOGS:SET_FRIENDS',
-    payload: array
-  }),
-  updateFriendsOnline: array => ({
-    type: 'DIALOGS:UPDATE_FRIENDS_ONLINE',
-    payload: array
-  }),
+
   updateReadStatus: ({ userId, dialogId }) => {
    
     return({
