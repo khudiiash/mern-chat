@@ -19,14 +19,16 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
   if ( user && currentDialogId ) {
     dialogsApi.getOneById(currentDialogId)
       .then(res => {
-        user.current_dialog_id = currentDialogId
-        if (res.data.author === user._id) {
-          user.receiver_id = res.data.partner
-        } else if (res.data.partner === user._id) {
-          user.receiver_id = res.data.author
+        if ( user.current_dialog_id !== currentDialogId) {
+          user.current_dialog_id = currentDialogId
+          if (res.data.author === user._id) {
+            user.receiver_id = res.data.partner
+          } else if (res.data.partner === user._id) {
+            user.receiver_id = res.data.author
+          }
+            userApi.setCurrentDialog(user)
         }
         
-          userApi.setCurrentDialog(user)
       })
   }
   const [inputValue, setValue] = useState('');
