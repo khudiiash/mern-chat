@@ -36,6 +36,18 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       items:state.items.filter(dialog => dialog._id !== payload)
       };
+    case 'DIALOGS:SET_DIALOG_ONLINE':
+      console.log('reducer: set online '+payload.fullName)
+      return {
+      ...state,
+      online:payload
+      };
+    case 'DIALOGS:SET_DIALOG_OFFLINE':
+      console.log('reducer: set offline '+payload.fullName)
+      return {
+      ...state,
+      offline:payload
+      };
     
     default:
       return state;

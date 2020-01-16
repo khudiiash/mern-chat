@@ -10,7 +10,14 @@ const Actions = {
     type: 'DIALOGS:SET_TYPING_IN_DIALOG',
     payload: id
   }),
-
+  setDialogOnline: user => ({
+    type: 'DIALOGS:SET_DIALOG_ONLINE',
+    payload: user
+  }),
+  setDialogOffline: user => ({
+    type: 'DIALOGS:SET_DIALOG_OFFLINE',
+    payload: user
+  }),
   updateReadStatus: ({ userId, dialogId }) => {
    
     return({

@@ -48,9 +48,6 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
          
           item.partner = item.partner._id === userId? item.author : item.partner 
           // dialog partner is never me
-         
-          
-         
       }
      
     })
@@ -72,6 +69,8 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
     socket.on('SERVER:DIALOG_CREATED', fetchDialogs);
     socket.on('SERVER:NEW_MESSAGE', fetchDialogs);
     socket.on('SERVER:MESSAGES_READ', updateReadStatus);
+    socket.on('SERVER:ONLINE', fetchDialogs);
+    socket.on('SERVER:OFFLINE', fetchDialogs);
     
     
     return () => {

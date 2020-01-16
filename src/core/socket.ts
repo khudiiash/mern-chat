@@ -10,7 +10,7 @@ export default (http: http.Server) => {
   
     socket.on('USER:ONLINE', (user: any) => {
       if (user) {
-        socket.broadcast.emit('USER:ONLINE', user)
+        socket.broadcast.emit('SERVER:ONLINE', user)
         currentUser = user
         UserModel.findOne(
           {_id: user._id},
@@ -26,7 +26,8 @@ export default (http: http.Server) => {
     });
     socket.on('disconnect',() => {
       if (currentUser) {
-        socket.broadcast.emit('USER:OFFLINE', currentUser)
+        setTimeout(() => {
+        socket.broadcast.emit('SERVER:OFFLINE', currentUser)}, 60000)
         UserModel.findOne(
           {_id: currentUser._id},
           (err: any, user: any) => {

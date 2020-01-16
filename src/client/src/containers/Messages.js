@@ -19,6 +19,8 @@ const Messages = ({
   attachments,
   me,
   setTypingInDialogWithId,
+  setDialogOnline,
+  setDialogOffline,
   isMobile
 }) => {
   if (!currentDialog) {
@@ -50,8 +52,7 @@ const Messages = ({
   };
 
   useEffect(() => {
-    socket.on('DIALOGS:TYPING', (obj) => toggleIsTyping(obj));
-    
+    socket.on('DIALOGS:TYPING', (obj) => toggleIsTyping(obj));    
   }, []);
 
   useEffect(() => {
