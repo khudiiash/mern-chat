@@ -7,12 +7,8 @@ import { DialogItem } from "../";
 import "./Dialogs.scss";
 import { useSelector } from "react-redux";
 
-const orderDialogs = (items,currentDialogId,userId) => {
-  let typingInDialogWithId = useSelector(state => state.dialogs.typingInDialogWithId)
-  let unreadDialogs = items.filter(item => !item.lastMessage.read)
-  let readDialogs = items.filter(item => item.lastMessage.read)
-  let allMessages = useSelector(state => state.messages.allItems);
-
+const orderDialogs = (items,allMessages,currentDialogId,typingInDialogWithId,userId) => {
+  
   // assign unread messages to dialogs <number>
   items.map(dialog => {
     if (allMessages && allMessages.length) {
@@ -24,13 +20,15 @@ const orderDialogs = (items,currentDialogId,userId) => {
       }
     }
   )
-  
+  let unreadDialogs = items.filter(item => !item.lastMessage.read)
+  let readDialogs = items.filter(item => item.lastMessage.read)
   let both = unreadDialogs.length && readDialogs.length ,
       onlyUnread = unreadDialogs.length && !readDialogs.length,
-      onlyRead = !unreadDialogs.length && !readDialogs.length,
-      empty = !unreadDialogs.length && !readDialogs.length
+      onlyRead = !unreadDialogs.length && readDialogs.length
+
 
   if (both) {
+    
     return(
       orderBy(unreadDialogs, ["unread"], ["desc"]).concat(orderBy(readDialogs, ["createdAt"], ["desc"])).map(item => {
         return(
@@ -50,49 +48,56 @@ const orderDialogs = (items,currentDialogId,userId) => {
    
   }
   else if (onlyRead) {
-    orderBy(readDialogs, ["createdAt"], ["desc"]).map(item => {
-      return(
-      <DialogItem
-        key={item._id}
-        isTyping={item._id === typingInDialogWithId}
-        isOnline={item.partner.isOnline}
-        isMe={item.author._id === userId}
-        unread={item.unread}
-        userId={userId}
-        currentDialogId={currentDialogId}
-        {...item}
-
-      />
-    )})
+    return(
+      orderBy(readDialogs, ["createdAt"], ["desc"]).map(item => {
+        return(
+        <DialogItem
+          key={item._id}
+          isTyping={item._id === typingInDialogWithId}
+          isOnline={item.partner.isOnline}
+          isMe={item.author._id === userId}
+          unread={item.unread}
+          userId={userId}
+          currentDialogId={currentDialogId}
+          {...item}
+  
+        />
+      )})
+    )
+    
   }
   else if (onlyUnread) {
-    orderBy(unreadDialogs, ["createdAt"], ["desc"]).map(item => {
-      return(
-      <DialogItem
-        key={item._id}
-        isTyping={item._id === typingInDialogWithId}
-        isOnline={item.partner.isOnline}
-        isMe={item.author._id === userId}
-        unread={item.unread}
-        userId={userId}
-        currentDialogId={currentDialogId}
-        {...item}
-
-      />
-    )})
+    return(
+      orderBy(unreadDialogs, ["createdAt"], ["desc"]).map(item => {
+        return(
+        <DialogItem
+          key={item._id}
+          isTyping={item._id === typingInDialogWithId}
+          isOnline={item.partner.isOnline}
+          isMe={item.author._id === userId}
+          unread={item.unread}
+          userId={userId}
+          currentDialogId={currentDialogId}
+          {...item}
+  
+        />
+      )})
+    )
+    
   }
-  else if (empty) {
-    return <Empty
+  else {
+    return (<Empty
     image={Empty.PRESENTED_IMAGE_SIMPLE}
     style={{color: 'rgba(255,255,255,.7)'}}
     description="Нет диалогов. Попробуйте создать новый"
-  />
+  />)
   }
   
 }
 const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
+  
+  let allMessages = useSelector(state => state.messages.allItems);
 
- 
   let typingInDialogWithId = useSelector(state => state.dialogs.typingInDialogWithId)
   
   return(
@@ -106,7 +111,7 @@ const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
       />
       
     </div>
-    {items ? orderDialogs(items,currentDialogId,userId) : ''}
+    {orderDialogs(items,allMessages,currentDialogId,typingInDialogWithId,userId)}
   </div>
 )};
 
