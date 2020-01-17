@@ -29,13 +29,12 @@
     display: flex;
     flex-direction: column-reverse;
     .avatar {
-      border-radius: 50px;
+      border-radius: 50%;
       width: 40px;
       height: 40px;
       margin-right: 13px;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
       font-size: 14px;
-      line-height: 31px;
     }
   }
 
@@ -155,14 +154,16 @@
           display: flex;
           cursor: pointer;
           border: 0;
-          width: 28px;
-          height: 28px;
+          width: 30px;
+          height: 30px;
           border-radius: 30px;
           background: #00000021;
+          justify-content: center;
+          align-items: center;
           img {
-            height: 13px;
+            height: 15px;
             position: relative;
-            left: 1.5px;
+            left: 1px;
           }
         }
       }

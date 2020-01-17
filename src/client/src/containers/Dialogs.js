@@ -44,8 +44,6 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
     
     filtered.forEach(item => {
       if (item) {
-          
-         
           item.partner = item.partner._id === userId? item.author : item.partner 
           // dialog partner is never me
       }

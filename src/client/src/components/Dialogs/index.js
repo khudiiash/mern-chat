@@ -7,44 +7,50 @@ import { DialogItem } from "../";
 import "./Dialogs.scss";
 import { useSelector } from "react-redux";
 
-const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
-
- 
+const orderDialogs = (items,currentDialogId,userId) => {
   let typingInDialogWithId = useSelector(state => state.dialogs.typingInDialogWithId)
   let unreadDialogs = items.filter(item => !item.lastMessage.read)
   let readDialogs = items.filter(item => item.lastMessage.read)
- 
-  return(
-  <div className="dialogs">
-    <div className="dialogs__search">
-      <Input.Search
-       className='dialogs__search-input'
-        placeholder="Поиск среди контактов"
-        onChange={e => onSearch(e.target.value)}
-        value={inputValue}
-      />
-      
-    </div>
-    {items.length ? (
-      unreadDialogs.length && readDialogs.length ? 
+  let allMessages = useSelector(state => state.messages.allItems);
+
+  // assign unread messages to dialogs <number>
+  items.map(dialog => {
+    if (allMessages && allMessages.length) {
+        let unread = allMessages.filter(
+          m => m.dialog === dialog._id && m.user !== userId && !m.read
+        ).length;
+        dialog.unread = unread
+        return dialog
+      }
+    }
+  )
+  
+  let both = unreadDialogs.length && readDialogs.length ,
+      onlyUnread = unreadDialogs.length && !readDialogs.length,
+      onlyRead = !unreadDialogs.length && !readDialogs.length,
+      empty = !unreadDialogs.length && !readDialogs.length
+
+  if (both) {
+    return(
       orderBy(unreadDialogs, ["unread"], ["desc"]).concat(orderBy(readDialogs, ["createdAt"], ["desc"])).map(item => {
-        
         return(
+          
         <DialogItem
           key={item._id}
           isTyping={item._id === typingInDialogWithId}
           isOnline={item.partner.isOnline}
-          isMe={item.author._id === userId}
+          isMe={item.lastMessage.user._id === userId}
           unread={item.unread}
           userId={userId}
           currentDialogId={currentDialogId}
           {...item}
-
         />
       )})
-     : unreadDialogs.length && !readDialogs.length ? 
-      orderBy(unreadDialogs, ["unread"], ["desc"]).map(item => {
-       
+    )
+   
+  }
+  else if (onlyRead) {
+    orderBy(readDialogs, ["createdAt"], ["desc"]).map(item => {
       return(
       <DialogItem
         key={item._id}
@@ -58,9 +64,9 @@ const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
 
       />
     )})
-    : !unreadDialogs.length && readDialogs.length 
-    ?  orderBy(readDialogs, ["createdAt"], ["desc"]).map(item => {
-       
+  }
+  else if (onlyUnread) {
+    orderBy(unreadDialogs, ["createdAt"], ["desc"]).map(item => {
       return(
       <DialogItem
         key={item._id}
@@ -73,17 +79,34 @@ const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
         {...item}
 
       />
-    )}) :
-      <Empty
-        image={Empty.PRESENTED_IMAGE_SIMPLE}
-        style={{color: 'rgba(255,255,255,.7)'}}
-        description="Нет диалогов. Попробуйте создать новый"
-      />
-    ): <Empty
+    )})
+  }
+  else if (empty) {
+    return <Empty
     image={Empty.PRESENTED_IMAGE_SIMPLE}
     style={{color: 'rgba(255,255,255,.7)'}}
     description="Нет диалогов. Попробуйте создать новый"
-  />}
+  />
+  }
+  
+}
+const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
+
+ 
+  let typingInDialogWithId = useSelector(state => state.dialogs.typingInDialogWithId)
+  
+  return(
+  <div className="dialogs">
+    <div className="dialogs__search">
+      <Input.Search
+       className='dialogs__search-input'
+        placeholder="Поиск среди контактов"
+        onChange={e => onSearch(e.target.value)}
+        value={inputValue}
+      />
+      
+    </div>
+    {items ? orderDialogs(items,currentDialogId,userId) : ''}
   </div>
 )};
 

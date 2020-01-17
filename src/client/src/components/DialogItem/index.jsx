@@ -33,21 +33,13 @@ const DialogItem = props => {
   } = props;
 
   let messages = useSelector(state => state.messages.items);
-  let allMessages = useSelector(state => state.messages.allItems);
-
-  if (allMessages && allMessages.length) {
-    if (currentDialogId !== _id) {
-      unread = allMessages.filter(
-        m => m.dialog === _id && m.user !== userId && !m.read
-      ).length;
-    }
-  }
-
+ 
   if (messages) {
     let newLastMessage = messages.find(m => m._id === lastMessage._id);
     if (newLastMessage) lastMessage = newLastMessage;
   }
   const isMobile = useMediaQuery({ maxWidth: 767 })
+  
 
   return (
     <Link to={`/dialog/${_id}`}>
@@ -70,13 +62,16 @@ const DialogItem = props => {
           <div className="dialogs__item-info-bottom">
             {!isTyping ? (
               <p>
-                {(lastMessage.user._id === userId ? "Вы: " : "")+reactStringReplace(
+                {
+                  (lastMessage.user._id === userId ? "Вы: " : "")}{reactStringReplace(
                   renderLastMessage(lastMessage,userId),
                   /:(.+?):/g,
                   (match, i) => (
                     <Emoji key={i} emoji={match} set="apple" size={16} />
                   )
                 )}
+               
+                
               </p>
             ) : (
               <div className="message__typing">

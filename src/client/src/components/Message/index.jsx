@@ -176,7 +176,7 @@ const Message = ({
         </div>
         <div className="message__info">
           {(text || isTyping) && (
-            <div className="message__bubble" style={{backgroundColor: isText ? 'linear-gradient(to right, #355b7d79, #6c5b7b75, #c06c8431)' : 'rgba(0,0,0,0)', boxShadow: isText ? '0px 4px 14px rgba(0, 0, 0, 0.055)':'none'}}>
+            <div className="message__bubble" style={{background: isText ? 'linear-gradient(to right, #355b7d79, #6c5b7b75, #c06c8431)' : countEmojies < 3 ? 'rgba(0,0,0,0)':'linear-gradient(to right, #355b7d79, #6c5b7b75, #c06c8431)', boxShadow: isText ? '0px 4px 14px rgba(0, 0, 0, 0.055)': countEmojies < 3 ? 'none':'0px 4px 14px rgba(0, 0, 0, 0.055)'}}>
               {text && (
                 <p className="message__text" style={isText ? {fontSize: '16px',height: 'auto'}:{fontSize: `80px`,height: countEmojies < 3 ? '80px': 'auto'}}>
                   {messageText}
