@@ -32,8 +32,6 @@ The Ordinary Chat uses a number of open source projects to work properly:
 * [Heroku] - free and comfortable hosting for test projects.
 
 
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
 
 ### Installation
 First, you will need to create your own **.env** file in the root folder.
@@ -67,7 +65,7 @@ $ cd ..
 $ cd ..
 $ npm start
 ```
-For production environments, initailize the git, craete heroku app (you must have an account for this), and push it in production.
+For production environments, initialize the git, create a heroku app (you must have an account for this), and push it in production.
 In the root folder:
 ```
 $ git init
@@ -76,8 +74,8 @@ $ git commit -m 'init'
 $ heroku create chat-app
 $ heroku addons:create mongolab:sandbox
 $ git push heroku master
-```
 
+```
    [Socket IO]: <https://socket.io/>
    [Cloudinary]: <https://cloudinary.com/>
    [JWT]: <https://jwt.io/>
