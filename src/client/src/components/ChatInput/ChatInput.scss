@@ -6,6 +6,9 @@
   height: 100%;
   width: 96%;
   top: 50px;
+  height: 200px;
+  vertical-align: bottom;
+  display: table-cell;
 
   & > div:first-of-type {
     display: flex;
@@ -32,7 +35,8 @@
     height: 45px !important;
     border: none !important;
     background: rgba(121, 121, 121, 0.11) !important;
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 15px !important;
     box-shadow: 0 0 30px rgba(0,0,0,.1);
     outline: 0 !important;
     border-radius: 8px;

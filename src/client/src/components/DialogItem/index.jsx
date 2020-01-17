@@ -5,6 +5,7 @@ import { Emoji } from "emoji-mart";
 import reactStringReplace from "react-string-replace";
 import { timeFromNow } from "utils/helpers";
 import { useSelector } from "react-redux";
+import { useMediaQuery } from 'react-responsive'
 
 import { IconRead, Avatar } from "../";
 
@@ -15,9 +16,7 @@ const renderLastMessage = (message, userId) => {
   } else {
     text = message.text;
   }
-  return text[0] !== ":"
-    ? `${message.user._id === userId ? "Вы: " : ""}${text}`
-    : `${message.user._id === userId ? "Вы " : ""}${text}`;
+  return text
 };
 
 const DialogItem = props => {
@@ -48,6 +47,7 @@ const DialogItem = props => {
     let newLastMessage = messages.find(m => m._id === lastMessage._id);
     if (newLastMessage) lastMessage = newLastMessage;
   }
+  const isMobile = useMediaQuery({ maxWidth: 767 })
 
   return (
     <Link to={`/dialog/${_id}`}>
@@ -70,8 +70,8 @@ const DialogItem = props => {
           <div className="dialogs__item-info-bottom">
             {!isTyping ? (
               <p>
-                {reactStringReplace(
-                  renderLastMessage(lastMessage, userId),
+                {(lastMessage.user._id === userId ? "Вы: " : "")+reactStringReplace(
+                  renderLastMessage(lastMessage,userId),
                   /:(.+?):/g,
                   (match, i) => (
                     <Emoji key={i} emoji={match} set="apple" size={16} />

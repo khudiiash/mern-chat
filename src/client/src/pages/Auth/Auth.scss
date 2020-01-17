@@ -90,7 +90,7 @@
     text-align: center;
   }
 }
-.ant-input {
+.ant-input:not(#chatTextarea) {
   font-family: Arial;
   font-size: 13px !important;
 }

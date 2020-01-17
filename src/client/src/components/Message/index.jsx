@@ -11,14 +11,12 @@ import waveSvg from "assets/img/wave.svg";
 import playSvg from "assets/img/play.svg";
 import pauseSvg from "assets/img/pause.svg";
 import { useMediaQuery } from 'react-responsive'
-import exifOrient from 'exif-orient'
-import EXIF from 'exif-js'
+
 
 
 import { Time, IconRead, Avatar } from "../";
 
 import "./Message.scss";
-import { previewImage } from "antd/lib/upload/utils";
 
 const MessageAudio = ({ audioSrc }) => {
   const audioElem = useRef(null);
@@ -128,6 +126,18 @@ const Message = ({
     }
   };
 
+  let isText = typeof reactStringReplace(text, /:(.+?):/g, (match, i) => (
+    <Emoji key={i} emoji={match} set="apple" size={16} />
+  ))[0] === 'string' && /[а-яА-Яa-zA-ZІЙЇіїй\d\W]/g.test(reactStringReplace(text, /:(.+?):/g, (match, i) => (
+    <Emoji key={i} emoji={match} set="apple" size={16} />
+  ))[0])
+  let countEmojies = (text && !isText) ? ((text).match(/:(.+?):/g) || []).length : 0
+
+  let messageText = reactStringReplace(text, /:(.+?):/g, (match, i) => (
+    <Emoji key={i} emoji={match} set="apple" size={isText ? 16 : countEmojies > 2 ? 20 : 80} />
+  ))
+
+
   return (
     <div
       className={classNames("message", {
@@ -166,12 +176,10 @@ const Message = ({
         </div>
         <div className="message__info">
           {(text || isTyping) && (
-            <div className="message__bubble">
+            <div className="message__bubble" style={{backgroundColor: isText ? 'linear-gradient(to right, #355b7d79, #6c5b7b75, #c06c8431)' : 'rgba(0,0,0,0)', boxShadow: isText ? '0px 4px 14px rgba(0, 0, 0, 0.055)':'none'}}>
               {text && (
-                <p className="message__text">
-                  {reactStringReplace(text, /:(.+?):/g, (match, i) => (
-                    <Emoji key={i} emoji={match} set="apple" size={16} />
-                  ))}
+                <p className="message__text" style={isText ? {fontSize: '16px',height: 'auto'}:{fontSize: `80px`,height: countEmojies < 3 ? '80px': 'auto'}}>
+                  {messageText}
                 </p>
               )}
               {date && (

@@ -20,8 +20,10 @@ const Home = props => {
 
   const mobileOpenDialog = () => {
     let sidebarElement = document.querySelector('.chat__sidebar')
-    if (sidebarElement) {
-      sidebarElement.style.display = 'none'
+    let dialogElement = document.querySelector('.chat__dialog')
+    if (sidebarElement && dialogElement) {
+      sidebarElement.style.transform = 'translateX(-100vw)'
+      dialogElement.style.transform = 'translateX(-100vw)'
     }
   }
   useEffect(() => {

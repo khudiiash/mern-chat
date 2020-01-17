@@ -20,8 +20,12 @@ const Status = props => {
 
 
   const goBack = () => {
-    let sidebar = document.querySelector('.chat__sidebar')
-    sidebar.style.display = 'block'
+    let sidebarElement = document.querySelector('.chat__sidebar')
+    let dialogElement = document.querySelector('.chat__dialog')
+    if (sidebarElement && dialogElement) {
+      sidebarElement.style.transform = 'translateX(0)'
+      dialogElement.style.transform = 'translateX(0)'
+    }
     history.push('/')
     clearMessages()
     
