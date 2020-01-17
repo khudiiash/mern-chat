@@ -27,7 +27,7 @@ const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
     </div>
     {items.length ? (
       unreadDialogs.length && readDialogs.length ? 
-      orderBy(unreadDialogs, ["createdAt"], ["desc"]).concat(orderBy(readDialogs, ["createdAt"], ["desc"])).map(item => {
+      orderBy(unreadDialogs, ["unread"], ["desc"]).concat(orderBy(readDialogs, ["createdAt"], ["desc"])).map(item => {
         
         return(
         <DialogItem
@@ -43,7 +43,7 @@ const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
         />
       )})
      : unreadDialogs.length && !readDialogs.length ? 
-      orderBy(unreadDialogs, ["createdAt"], ["desc"]).map(item => {
+      orderBy(unreadDialogs, ["unread"], ["desc"]).map(item => {
        
       return(
       <DialogItem
@@ -77,12 +77,12 @@ const Dialogs = ({ items,userId, onSearch, inputValue, currentDialogId }) => {
       <Empty
         image={Empty.PRESENTED_IMAGE_SIMPLE}
         style={{color: 'rgba(255,255,255,.7)'}}
-        description="Ничего не найдено"
+        description="Нет диалогов. Попробуйте создать новый"
       />
     ): <Empty
     image={Empty.PRESENTED_IMAGE_SIMPLE}
     style={{color: 'rgba(255,255,255,.7)'}}
-    description="Ничего не найдено"
+    description="Нет диалогов. Попробуйте создать новый"
   />}
   </div>
 )};

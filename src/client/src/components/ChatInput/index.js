@@ -29,8 +29,7 @@ const ChatInput = props => {
   } = props;
   const isMobile = useMediaQuery({ maxWidth: 767 })
 
-  console.log(isMobile)
-  
+ 
   return (
     <Fragment>
       <div className="chat-input" style={{ width: isMobile ? '96vw' : '96%', top:  isMobile ? '10px' : '50px' }}>

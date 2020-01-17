@@ -47,7 +47,7 @@ const Messages = ({
               />
             )})
           ) : (
-            <Empty description="Диалог пуст" className='chat__info-message'/>
+            ''
           )
         ) : (
           <Empty description="Откройте диалог" className='chat__info-message'/>
