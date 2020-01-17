@@ -27,13 +27,9 @@ The Ordinary Chat uses a number of open source projects to work properly:
 * [Express] - fast node.js network app framework
 * [JWT] - authorization framework
 * [Nodemailer] - an easy-to-use mailer for node (used with Gmail as its SMTP client)
-* [Mongo DB] - comfortable, fast, and mondern database
+* [Mongo DB] - comfortable, fast, and modern database
 * [Cloudinary] - for storing media content
 * [Heroku] - free and comfortable hosting for test projects.
-
-
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
 
 ### Installation
 First, you will need to create your own **.env** file in the root folder.
@@ -67,7 +63,7 @@ $ cd ..
 $ cd ..
 $ npm start
 ```
-For production environments, initailize the git, craete heroku app (you must have an account for this), and push it in production.
+For production environments, initialize the git, create an heroku app (you must have an account for this), and push it in production.
 In the root folder:
 ```
 $ git init
