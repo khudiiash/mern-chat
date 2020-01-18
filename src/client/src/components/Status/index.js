@@ -10,7 +10,7 @@ import { useMediaQuery } from 'react-responsive'
 
 const GoBackIcon = ({goBack}) => {
   return(
-    <div className='status-go-back' onClick={()=> goBack()}>
+    <div className='status-go-back' onClick={()=> goBack()} onTouchEnd={()=>goBack()}>
         <Icon className='status-go-back-arrow' type='left' style={{color: 'grey'}} />
     </div>
    
@@ -36,7 +36,8 @@ const Status = ({ partner, deleteDialogById,goBack }) => {
         className="chat__dialog-header-action"
         content={
           <div>
-            <Button type='danger' onClick={() => deleteDialogById(currentDialogId)}>Удалить диалог</Button>
+            <Button type='danger' onClick={() => deleteDialogById(currentDialogId)}
+            onTouchEnd={() => deleteDialogById(currentDialogId)}>Удалить диалог</Button>
           </div>
         }
         trigger="click">

@@ -1,14 +1,11 @@
 @import '~styles/variables';
 
 .chat-input {
-  margin: 5px;
+  margin: 3px;
   position: absolute;
   height: 100%;
   width: 96%;
-  top: 50px;
-  height: 200px;
-  vertical-align: bottom;
-  display: table-cell;
+    
 
   & > div:first-of-type {
     display: flex;

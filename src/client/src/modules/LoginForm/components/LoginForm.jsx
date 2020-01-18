@@ -60,6 +60,7 @@ const LoginForm = props => {
             <Button
               disabled={isSubmitting}
               onClick={handleSubmit}
+              onTouchEnd={handleSubmit}
               type="primary"
               size="large"
             >

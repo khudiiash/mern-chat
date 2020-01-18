@@ -72,7 +72,7 @@ const MessageAudio = ({ audioSrc }) => {
       />
       <div className="message__audio-info">
         <div className="message__audio-btn">
-          <button onClick={togglePlay}>
+          <button onClick={togglePlay} onTouchEnd={togglePlay}>
             {isPlaying ? (
               <img src={pauseSvg} alt="Pause svg" />
             ) : (
@@ -112,6 +112,7 @@ const Message = ({
         <div
           key={item._id}
           onClick={() => setPreviewImage(item.url)}
+          onTouchEnd={() => setPreviewImage(item.url)}
           className="message__attachments-item"
         >
           <div className="message__attachments-item-overlay">
@@ -158,7 +159,7 @@ const Message = ({
         <Popover
           content={
             <div>
-              <Button type="danger" onClick={onRemoveMessage}>
+              <Button type="danger" onClick={onRemoveMessage} onTouchEnd={onRemoveMessage}>
                 Удалить сообщение
               </Button>
             </div>

@@ -42,9 +42,9 @@ const Sidebar = ({
           <span className={`chat__sidebar-header-me-name`}>{user ? user.fullName : ''}</span>
         </div>
         <div className={`chat__sidebar-header-buttons`}>
-          <Button className={`chat__sidebar-header-logout`} onClick={() => onLogout(user)}
+          <Button className={`chat__sidebar-header-logout`} onClick={() => onLogout(user)}  onTouchEnd={()=> onLogout(user)}
             type='link' shape="circle" icon='logout' title='Выход' />
-          <Button className={`chat__sidebar-header-new-chat`} onClick={onShow} type="link" shape="circle" icon="form" title='Cоздать новый чат' />
+          <Button className={`chat__sidebar-header-new-chat`} onClick={onShow} onTouchEnd={onShow} type="link" shape="circle" icon="form" title='Cоздать новый чат' />
         </div>
 
       </div>
@@ -57,7 +57,7 @@ const Sidebar = ({
         visible={visible}
         onCancel={onClose}
         footer={[
-          <Button key="back" onClick={onClose}>
+          <Button key="back" onClick={onClose} onTouchEnd={onClose}>
             Закрыть
           </Button>,
           <Button
@@ -65,7 +65,8 @@ const Sidebar = ({
             key="submit"
             type="primary"
             loading={isLoading}
-            onClick={onModalOk}>
+            onClick={onModalOk}
+            onTouchEnd={onModalOk}>
             Создать
           </Button>,
         ]}>
