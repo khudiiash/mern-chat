@@ -22,6 +22,8 @@ const Status = props => {
     let sidebarElement = document.querySelector('.chat__sidebar')
     let dialogElement = document.querySelector('.chat__dialog')
     if (sidebarElement && dialogElement) {
+      sidebarElement.style.transition = '500ms'
+      dialogElement.style.transition = '600ms'
       sidebarElement.style.transform = 'translateX(0)'
       dialogElement.style.transform = 'translateX(0)'
     }
