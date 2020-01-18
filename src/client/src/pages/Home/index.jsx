@@ -21,9 +21,12 @@ const Home = props => {
   if (isMobile) {
     const { pathname } = props.location;
     if (pathname === '/') {
+
       let sidebarElement = document.querySelector('.chat__sidebar')
       let dialogElement = document.querySelector('.chat__dialog')
       if (sidebarElement && dialogElement) {
+        sidebarElement.style.transition = 'none'
+        dialogElement.style.transition = 'none'
         sidebarElement.style.transform = 'translateX(0)'
         dialogElement.style.transform = 'translateX(0)'
       }
@@ -33,6 +36,8 @@ const Home = props => {
     let sidebarElement = document.querySelector('.chat__sidebar')
     let dialogElement = document.querySelector('.chat__dialog')
     if (sidebarElement && dialogElement) {
+      sidebarElement.style.transition = '500ms'
+      dialogElement.style.transition = '600ms'
       sidebarElement.style.transform = 'translateX(-100vw)'
       dialogElement.style.transform = 'translateX(-100vw)'
     }

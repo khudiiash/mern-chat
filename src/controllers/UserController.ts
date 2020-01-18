@@ -291,7 +291,6 @@ class UserController {
       email: req.body.email,
       password: req.body.password
     };
-
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {

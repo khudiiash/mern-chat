@@ -1,7 +1,6 @@
-import React, {useEffect} from "react";
+import React from "react";
 import { Status as StatusBase } from "components";
 import { connect } from "react-redux";
-import socket from 'core/socket'
 import { userActions,dialogsActions,messagesActions } from 'redux/actions'
 import {useMediaQuery } from 'react-responsive'
 

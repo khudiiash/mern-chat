@@ -5,7 +5,6 @@ import { Emoji } from "emoji-mart";
 import reactStringReplace from "react-string-replace";
 import { timeFromNow } from "utils/helpers";
 import { useSelector } from "react-redux";
-import { useMediaQuery } from 'react-responsive'
 
 import { IconRead, Avatar } from "../";
 
@@ -38,8 +37,6 @@ const DialogItem = props => {
     let newLastMessage = messages.find(m => m._id === lastMessage._id);
     if (newLastMessage) lastMessage = newLastMessage;
   }
-  const isMobile = useMediaQuery({ maxWidth: 767 })
-  
 
   return (
     <Link to={`/dialog/${_id}`}>

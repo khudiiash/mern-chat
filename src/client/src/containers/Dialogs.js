@@ -4,7 +4,7 @@ import { connect, useSelector } from 'react-redux';
 import { dialogsActions, messagesActions} from 'redux/actions';
 import socket from 'core/socket';
 import { Dialogs as BaseDialogs } from 'components';
-import { userApi, dialogsApi, messagesApi } from '../utils/api';
+import { messagesApi } from '../utils/api';
 
 const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userId, user, setAllMessages }) => {
  
