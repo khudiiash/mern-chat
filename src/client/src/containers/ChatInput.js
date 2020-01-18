@@ -109,7 +109,6 @@ const ChatInput = props => {
     socket.emit('DIALOGS:TYPING', { dialogId: currentDialogId, user });
     if (e.keyCode === 13) {
       if (!e.shiftKey && e.target.value.length > 1) {
-        console.log(e.target.value.length)
         sendMessage();
       } else {
         

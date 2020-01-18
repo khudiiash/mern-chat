@@ -9,9 +9,7 @@ const Status = props => {
     user,
     dialogs,
     deleteDialog,
-    history,
-    clearMessages
-    
+    history,    
   } = props
   
   const isMobile = useMediaQuery({ maxWidth: 767 })
@@ -19,17 +17,7 @@ const Status = props => {
 
 
   const goBack = () => {
-    let sidebarElement = document.querySelector('.chat__sidebar')
-    let dialogElement = document.querySelector('.chat__dialog')
-    if (sidebarElement && dialogElement) {
-      sidebarElement.style.transition = '500ms'
-      dialogElement.style.transition = '600ms'
-      sidebarElement.style.transform = 'translateX(0)'
-      dialogElement.style.transform = 'translateX(0)'
-    }
-    setTimeout(()=>history.push('/'),600)
-    clearMessages()
-    
+    history.push('/')   
   }
   const deleteDialogById = (id) => {
     deleteDialog(id)
