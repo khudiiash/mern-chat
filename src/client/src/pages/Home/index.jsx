@@ -21,7 +21,7 @@ const Home = props => {
   if (isMobile) {
     const { pathname } = props.location;
     if (pathname === '/') {
-
+      props.clearMessages()
       let sidebarElement = document.querySelector('.chat__sidebar')
       let dialogElement = document.querySelector('.chat__dialog')
       if (sidebarElement && dialogElement) {
