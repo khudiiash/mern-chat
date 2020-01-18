@@ -15,9 +15,20 @@ const Home = props => {
   if (user) {
     socket.emit('USER:ONLINE', user)
   }
- 
-  const isMobile = useMediaQuery({ maxWidth: 767 })
+  
 
+  const isMobile = useMediaQuery({ maxWidth: 767 })
+  if (isMobile) {
+    const { pathname } = props.location;
+    if (pathname === '/') {
+      let sidebarElement = document.querySelector('.chat__sidebar')
+      let dialogElement = document.querySelector('.chat__dialog')
+      if (sidebarElement && dialogElement) {
+        sidebarElement.style.transform = 'translateX(0)'
+        dialogElement.style.transform = 'translateX(0)'
+      }
+    }
+  }  
   const mobileOpenDialog = () => {
     let sidebarElement = document.querySelector('.chat__sidebar')
     let dialogElement = document.querySelector('.chat__dialog')
@@ -43,6 +54,7 @@ const Home = props => {
         {user && (
           <div className="chat__dialog" style={{width: isMobile ? '100vw' : 'auto'}}>
             <Status history={props.history}/>
+            <button>Go Back</button>
             <Messages me={user}/>
             <div className="chat__dialog-input" style={{height: isMobile ? '70px' : '120px'}}>
               <ChatInput />
