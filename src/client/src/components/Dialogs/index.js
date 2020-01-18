@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 const orderDialogs = (items,allMessages,currentDialogId,typingInDialogWithId,userId) => {
   
   // assign unread messages to dialogs <number>
-  
+
   // eslint-disable-next-line array-callback-return
   items.map(dialog => {
     if (allMessages && allMessages.length) {

@@ -27,7 +27,7 @@ const Status = props => {
       sidebarElement.style.transform = 'translateX(0)'
       dialogElement.style.transform = 'translateX(0)'
     }
-    history.push('/')
+    setTimeout(()=>history.push('/'),600)
     clearMessages()
     
   }
