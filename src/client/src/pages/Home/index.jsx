@@ -54,7 +54,6 @@ const Home = props => {
         {user && (
           <div className="chat__dialog" style={{width: isMobile ? '100vw' : 'auto'}}>
             <Status history={props.history}/>
-            <button>Go Back</button>
             <Messages me={user}/>
             <div className="chat__dialog-input" style={{height: isMobile ? '70px' : '120px'}}>
               <ChatInput />
