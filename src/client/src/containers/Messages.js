@@ -19,9 +19,6 @@ const Messages = ({
   attachments,
   me,
   setTypingInDialogWithId,
-  setDialogOnline,
-  setDialogOffline,
-  isMobile
 }) => {
   if (!currentDialog) {
 
@@ -29,6 +26,7 @@ const Messages = ({
     
   }
   let typingInDialogWithId = useSelector(state => state.dialogs.typingInDialogWithId)
+  let allMessages = useSelector(state => state.messages.allItems)
   
   
   const [previewImage, setPreviewImage] = useState(null);
@@ -65,7 +63,12 @@ const Messages = ({
 
   useEffect(() => {
     if (currentDialog) {
-      fetchMessages(currentDialog._id);
+      let itsMessages;
+      if (allMessages) {
+        itsMessages = allMessages.filter(m => m.dialog === currentDialog._id)
+      }
+      
+      fetchMessages(currentDialog,itsMessages);
     }
    
     socket.on('SERVER:NEW_MESSAGE', onNewMessage);

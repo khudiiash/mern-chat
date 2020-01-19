@@ -36,18 +36,17 @@ export default (state = initialState, { type, payload }) => {
       ...state,
       items:state.items.filter(dialog => dialog._id !== payload)
       };
-    case 'DIALOGS:SET_DIALOG_ONLINE':
-      console.log('reducer: set online '+payload.fullName)
+    case 'DIALOGS:CACHE_MESSAGES':
       return {
       ...state,
-      online:payload
-      };
-    case 'DIALOGS:SET_DIALOG_OFFLINE':
-      console.log('reducer: set offline '+payload.fullName)
-      return {
-      ...state,
-      offline:payload
-      };
+      items: state.items.map(dialog => {
+        if (dialog._id === payload.id) {
+          dialog.cache = payload.items;
+        }
+        return dialog;
+      }),
+    }
+    
     
     default:
       return state;

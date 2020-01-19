@@ -23,7 +23,7 @@ const Status = ({ partner, deleteDialogById,goBack }) => {
   const isMobile = useMediaQuery({ maxWidth: 767 })
 
   return (
-    <div className="chat__dialog-header" style={{width: isMobile ? '100vw' : '100%', background: isMobile ? 'rgb(45,45,45)':'linear-gradient(to bottom,rgba(0, 0, 0, 0.144) 30%, rgba(255,255,255,0))'}}>
+    <div className="chat__dialog-header" style={{width: isMobile ? '100vw' : '100%', background: isMobile ? 'rgb(0,0,0,.1)':'linear-gradient(to bottom,rgba(0, 0, 0, 0.144) 30%, rgba(255,255,255,0))'}}>
       {isMobile ?  <GoBackIcon goBack={goBack}/>: ''}
       <div className="chat__dialog-header-center">
         <b className="chat__dialog-header-username">{partner.fullName}</b>

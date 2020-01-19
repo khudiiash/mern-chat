@@ -8,7 +8,7 @@ import { messagesApi } from '../utils/api';
 
 const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userId, user, setAllMessages }) => {
  
-  let all =useSelector(state => state.messages.allItems)
+  let all = useSelector(state => state.messages.allItems)
 
   const [inputValue, setValue] = useState('');
   const [filtered, setFilteredItems] = useState(Array.from(items));
@@ -47,13 +47,9 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
           item.partner = item.partner._id === userId? item.author : item.partner 
           // dialog partner is never me
       }
-     
     })
   }
-  useEffect(() => {
-    socket.on('USER:ONLINE',() => console.log('online'))
-    socket.on('USER:OFFLINE',() => console.log('offline'))
-  })
+ 
   useEffect(() => {
     if (items.length) {
       onChangeInput();
@@ -76,6 +72,7 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
       socket.removeListener('SERVER:NEW_MESSAGE', fetchDialogs);
     };
   }, []);
+  console.log(useSelector(state => state.dialogs.items))
   return (
     <BaseDialogs
       userId={userId}

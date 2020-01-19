@@ -22,71 +22,23 @@ const orderDialogs = (items,allMessages,currentDialogId,typingInDialogWithId,use
       }
     }
   )
-  let unreadDialogs = items.filter(item => !item.lastMessage.read)
-  let readDialogs = items.filter(item => item.lastMessage.read)
-  let both = unreadDialogs.length && readDialogs.length ,
-      onlyUnread = unreadDialogs.length && !readDialogs.length,
-      onlyRead = !unreadDialogs.length && readDialogs.length
-
-
-  if (both) {
-    
-    return(
-      orderBy(unreadDialogs, ["unread"], ["desc"]).concat(orderBy(readDialogs, ["createdAt"], ["desc"])).map(item => {
-        return(
-          
-        <DialogItem
-          key={item._id}
-          isTyping={item._id === typingInDialogWithId}
-          isOnline={item.partner.isOnline}
-          isMe={item.lastMessage.user._id === userId}
-          unread={item.unread}
-          userId={userId}
-          currentDialogId={currentDialogId}
-          {...item}
-        />
-      )})
-    )
-   
-  }
-  else if (onlyRead) {
-    return(
-      orderBy(readDialogs, ["createdAt"], ["desc"]).map(item => {
-        return(
-        <DialogItem
-          key={item._id}
-          isTyping={item._id === typingInDialogWithId}
-          isOnline={item.partner.isOnline}
-          isMe={item.author._id === userId}
-          unread={item.unread}
-          userId={userId}
-          currentDialogId={currentDialogId}
-          {...item}
-  
-        />
-      )})
-    )
-    
-  }
-  else if (onlyUnread) {
-    return(
-      orderBy(unreadDialogs, ["createdAt"], ["desc"]).map(item => {
-        return(
-        <DialogItem
-          key={item._id}
-          isTyping={item._id === typingInDialogWithId}
-          isOnline={item.partner.isOnline}
-          isMe={item.author._id === userId}
-          unread={item.unread}
-          userId={userId}
-          currentDialogId={currentDialogId}
-          {...item}
-  
-        />
-      )})
-    )
-    
-  }
+    if (items.length) {
+      return(
+        orderBy(items, ["createdAt"], ["desc"])).map(item => {
+           return(
+             
+           <DialogItem
+             key={item._id}
+             isTyping={item._id === typingInDialogWithId}
+             isOnline={item.partner.isOnline}
+             isMe={item.lastMessage.user._id === userId}
+             unread={item.unread}
+             userId={userId}
+             currentDialogId={currentDialogId}
+             {...item}
+           />
+         )})   
+    }   
   else {
     return (<Empty
     image={Empty.PRESENTED_IMAGE_SIMPLE}

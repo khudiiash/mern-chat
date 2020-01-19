@@ -1,4 +1,5 @@
 import { messagesApi } from "utils/api";
+import { useSelector } from "react-redux";
 
 const Actions = {
   setAllMessages: items =>  ({
@@ -8,6 +9,10 @@ const Actions = {
   setMessages: items => ({
     type: "MESSAGES:SET_ITEMS",
     payload: items
+  }),
+  cacheMessages: (id,items) => ({
+    type: "DIALOGS:CACHE_MESSAGES",
+    payload: {id,items}
   }),
   clearMessages: () => ({
     type: "MESSAGES:SET_ITEMS",
@@ -46,16 +51,26 @@ const Actions = {
         });
   },
 
-  fetchMessages: dialogId => dispatch => {
-    dispatch(Actions.setIsLoading(true));
-    messagesApi
-      .getAllByDialogId(dialogId)
-      .then(({ data }) => {
-        dispatch(Actions.setMessages(data));
-      })
-      .catch(() => {
-        dispatch(Actions.setIsLoading(false));
-      });
+  fetchMessages: (dialog, itsMessages) => dispatch => {
+      if (dialog.cache && itsMessages && dialog.cache.length === itsMessages.length) {
+        dispatch(Actions.setMessages(dialog.cache));
+      } else {
+        dispatch(Actions.setIsLoading(true));
+        messagesApi
+          .getAllByDialogId(dialog._id)
+          .then(({ data }) => {
+            if (itsMessages) {
+              
+            }
+           
+            dispatch(Actions.setMessages(data));
+            dispatch(Actions.cacheMessages(dialog._id,data))
+          })
+          .catch(() => {
+            dispatch(Actions.setIsLoading(false));
+          });
+      }
+           
   },
  
 };
