@@ -14,7 +14,7 @@ const Avatar = ({ user, isWithin }) => {
         className="avatar"
         src={user.avatar}
         alt={`Avatar ${user.fullName}`}
-        style={{display : isMobile && isWithin ? 'none':'block'}}
+        style={{display : isMobile && isWithin ? 'none':'block',width: isMobile?'45px':'40px',height: isMobile? '45px':'40px'}}
       />
     );
   } else {
@@ -24,9 +24,13 @@ const Avatar = ({ user, isWithin }) => {
       <div
         style={{
           background: `linear-gradient(135deg, ${color} 0%, ${colorLighten} 96.52%)`,
-          display : isMobile && isWithin ? 'none':'block'
+          display : isMobile && isWithin ? 'none':'block',
+          width: isMobile?'45px':'40px',height: isMobile? '45px':'40px',
+          lineHeight: isMobile?'43px':'38px',
         }}
-        className="avatar avatar--symbol">
+        className="avatar avatar--symbol"
+        
+        >
         {firstChar}
       </div>
 

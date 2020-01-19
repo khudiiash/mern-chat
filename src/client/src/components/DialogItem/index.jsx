@@ -5,7 +5,7 @@ import { Emoji } from "emoji-mart";
 import reactStringReplace from "react-string-replace";
 import { timeFromNow } from "utils/helpers";
 import { useSelector } from "react-redux";
-
+import {useMediaQuery} from 'react-responsive'
 import { IconRead, Avatar } from "../";
 
 const renderLastMessage = (message, userId) => {
@@ -32,7 +32,8 @@ const DialogItem = props => {
   } = props;
 
   let messages = useSelector(state => state.messages.items);
- 
+  const isMobile = useMediaQuery({ maxWidth: 767 })
+
   if (messages) {
     let newLastMessage = messages.find(m => m._id === lastMessage._id);
     if (newLastMessage) lastMessage = newLastMessage;
@@ -45,6 +46,8 @@ const DialogItem = props => {
           "dialogs__item--online": isOnline,
           "dialogs__item--selected": currentDialogId === _id
         })}
+        style={{margin: isMobile ? '0 8px 0 8px': '0',padding: isMobile ? '15px 15px 15px 10px':'10px 20px'
+      }}
       >
         <div className="dialogs__item-avatar">
           <Avatar user={partner} />
