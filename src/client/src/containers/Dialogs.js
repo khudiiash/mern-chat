@@ -72,7 +72,6 @@ const Dialogs = ({ fetchDialogs, updateReadStatus, currentDialogId, items, userI
       socket.removeListener('SERVER:NEW_MESSAGE', fetchDialogs);
     };
   }, []);
-  console.log(useSelector(state => state.dialogs.items))
   return (
     <BaseDialogs
       userId={userId}

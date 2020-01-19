@@ -31,7 +31,6 @@ class MessageController {
       }
            
           if (!err && sender && receiver && !receiver.isOnline) {
-            console.log('yep, sending')
         mailer.sendMail(
           {
             from: 'Ordinary Chat',
