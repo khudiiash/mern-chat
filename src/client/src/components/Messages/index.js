@@ -27,7 +27,7 @@ const Messages = ({
 }) => {
   const isMobile = useMediaQuery({maxWidth:767})
   return (
-    <div className="chat__dialog-messages" style={{ height: isMobile ? `calc(96% - ${blockHeight}px)` : `calc(100% - ${blockHeight}px)`,width: isMobile ? '100vw' : 'auto'}}>
+    <div className="chat__dialog-messages" style={{ height: isMobile ? `calc(100% - ${blockHeight}px)` : `calc(100% - ${blockHeight}px)`,width: isMobile ? '100vw' : 'auto'}}>
       <div ref={blockRef} className={classNames('messages', { 'messages--loading': isLoading })}>
         {isLoading && !user ? (
           <Spin size="large" tip="Загрузка сообщений..." />

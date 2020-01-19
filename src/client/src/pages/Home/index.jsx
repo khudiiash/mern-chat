@@ -60,7 +60,7 @@ const Home = props => {
           <div className="chat__dialog" style={{width: isMobile ? '100vw' : 'auto'}}>
             <Status history={props.history}/>
             <Messages me={user}/>
-            <div className="chat__dialog-input" style={{height: isMobile ? '70px' : '120px', background: isMobile ? 'rgb(0,0,0,0)':'linear-gradient(to top,rgba(0, 0, 0,.3) 30%, rgba(255,255,255,0) )'}}>
+            <div className="chat__dialog-input" style={{height: isMobile ? '70px' : '120px', background: isMobile ? 'rgb(0,0,0,.1)':'linear-gradient(to top,rgba(0, 0, 0,.3) 30%, rgba(255,255,255,0) )'}}>
               <ChatInput />
             </div>
           </div>
